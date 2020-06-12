@@ -7,7 +7,7 @@ HTTP 프로토콜은 **stateless 프로토콜**이다. stateless란 다시 말�
 
 HTTP 프로토콜은 TCP/IP 통신 위에서 동작하며 80번 포트를 사용한다.
 
-![How HTTP works](https://lh3.googleusercontent.com/proxy/4u8mMVuUqh9TXBibsv5tSEMPManW6GihgYdSF6UfwMWvgHCK6UpVcrn_O4TZoi9d4JH6ymQI149p8WmKruPo7-gxQoYo_pWA65VLGV2YozAymSpdYN4jWw7ut2JhCpxuSnv23o3tGXoOWL75MSWaU_qKEQCmpdrgNus)
+![How HTTP works](https://joshua1988.github.io/images/posts/web/http/request-response.png)
 
 HTTP 프로토콜은 Request를 보내고 Response를 받는 식으로 동작한다. 즉 Client-Server 형식이다.
 
