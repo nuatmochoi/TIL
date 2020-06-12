@@ -59,6 +59,6 @@ console.log(counterFirst());
 
 ## Reference
 
-- [클로저(Closure)](https://joshua1988.github.io/vue-camp/js/closure.html#%ED%95%A8%EC%88%98%ED%98%95-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D)
+- [클로저(Closure)](https://joshua1988.github.io/vue-camp/js/closure.html#%ED%81%B4%EB%A1%9C%EC%A0%B8-closure)
 - [자바스크립트의 스코프와 클로저](https://meetup.toast.com/posts/86)
 - [클로저, 그리고 캡슐화와 은닉화](https://meetup.toast.com/posts/90)
