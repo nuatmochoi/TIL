@@ -11,7 +11,7 @@ Javascript에서 `원시값(primitive, 원시 자료형)`이란 `객체`도 아�
 - undefined
 - symbol (ES16에서 추가)
 
-모든 primitive는 불변이다. primitive 자체와 primitive을 할당한 변수를 혼동하지 않아야 한다. 변수는 새로운 값을 다시 할당할 수 있지만, 이미 생성한 primitive는 객체, 배열, 함수와 달리 변형이 불가하다. 여기서 객체, 배열, 함수를 `참조 타입(reference type)` 이라고 부른다.
+모든 primitive는 불변이다. primitive 자체와 primitive을 할당한 변수를 혼동하지 않아야 한다. 변수는 새로운 값을 다시 할당할 수 있지만, 이미 생성한 primitive는 객체, 배열, 함수와 달리 변형이 불가하다. 여기서 객체, 배열, 함수를 원시값과 구별하여 `참조 타입(reference type)` 이라고 부른다.
 
 ```js
 var numberPrimitive = 10;
@@ -26,7 +26,7 @@ var stringPrimitivie = 'string boy';
 - 인자가 전달될 때 call by value의 형태로 넘어간다.
 - primitive type의 값은 immutable하다.
 
-null과 undefined를 제외하고, 모든 primitive는 원시값을 래핑한 객체를 가진다
+null과 undefined를 제외하고, 모든 primitive는 원시값을 래핑한 객체를 가진다.
 
 - 문자열 원시값을 위한 `String` 객체
 - 숫자 원시값을 위한 `Number` 객체
