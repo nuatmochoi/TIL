@@ -10,6 +10,8 @@ expo는 create-react-app 같은 것. 리액트 네이티브를 위한 설정 파
 expo는 모든 native file을 숨기고, 모든 것을 관리. expo의 장점은 휴대폰에서 앱을 테스트할 수 있다는 것. (안드로이드, iOS 모두 expo 앱을 통해 테스트 가능)
 expo는 iOS, 안드로이드를 위한 앱을 빌드해준다. 윈도우 개발자라도 iOS 앱을 빌드할 수 있게 되는 것이다.
 
+- expo는 한 개라도 네이티브 확장이 필요하면 eject하거나 기능을 포기해야 하는데, 이러한 상황이 금방 올 수도 있다. eject를 할 경우 빌드 시스템 세팅 문제로 고생을 하게 될 것이므로 권장하지 않는 방식. 따라서 eject를 하지 않으려면 expo를 선택, eject를 할 가능성이 있다면 react-native-cli로 시작하는것이 추천됨
+
 expo api는 payment, printing, sensor, sqlite, updates, video, web-browser, facebook-ads, barcode-scanner, barometer, brightness 등 다양한 기능을 지원한다.
 
 `expo init {프로젝트명}`
