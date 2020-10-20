@@ -1,6 +1,6 @@
 # Nginx 를 이용한 Django 배포 (feat. Docker)
 
-runserver로만 장고 서버를 구동하고 있었는데, 성능이나 안정성 이슈가 있다고 한다. 따라서 프로젝트를 진행하면서 django에 웹 서버인 nginx를 연동하는 과정이 있었다.
+runserver로만 장고 서버를 구동하고 있었는데, 성능이나 안정성 이슈가 있다고 한다. django의 runserver 커맨드는 주로 테스트 용으로 사용되며, production 용도로는 WAS(Nginx, gunicorn)과 연동하여 배포하는 것이 일반적이다. 따라서 프로젝트를 진행하면서 django에 웹 서버인 nginx를 연동하는 과정이 있었다.
 
 **Docker를 이용하여 nginx를 쉽게 연동하는 방법이 있어 소개해보자 한다.**
 
