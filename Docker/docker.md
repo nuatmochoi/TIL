@@ -16,3 +16,16 @@
 ## Docker cacheing
 
 한번 이미지를 빌드한 뒤 dockerfile에 동일한 명령어가 있으면 이전의 빌드에서 사용했던 캐시를 사용한다. build할 때 using Cache log가 나오는 것을 확인할 수 있다. 캐시가 필요하지 않다면 `--no-cache` 옵션을 추가하면 된다.
+
+## How to fix docker error processing tar file
+
+공간이 부족하거나 권한 문제로 발생하는 도커 오류
+
+1. docker image prune
+2. systemctl stop docker
+3. rm -rf /var/lib/docker
+4. systemctl start docker
+
+이후 permission issue가 발생한다면
+
+5. sudo chmod 666 /var/run/docker.sock
