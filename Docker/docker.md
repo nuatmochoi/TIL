@@ -21,10 +21,10 @@
 
 공간이 부족하거나 권한 문제로 발생하는 도커 오류
 
-1. docker image prune
-2. systemctl stop docker
-3. rm -rf /var/lib/docker
-4. systemctl start docker
+1. sudo docker image prune
+2. sudo systemctl stop docker
+3. sudo rm -rf /var/lib/docker
+4. sudo systemctl start docker
 
 이후 permission issue가 발생한다면
 
