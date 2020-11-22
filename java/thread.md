@@ -1,0 +1,23 @@
+# Java Thread
+
+- 하나의 프로세스 안에 여러 개의 스레드가 동시에 작업 수행
+- 스레드 == 하나의 작업단위
+- 자바에서 스레드 구현은 2가지 방법이 있다 : Runnable 인터페이스, Thread 클래스 상속
+  - 공통점 : 둘 다 run() 메소드를 오버라이딩하는 방식
+  - 차이점 : 인스턴스 생성 방법
+    - public class MyThread implements Runnable
+      - 해당 클래스를 인스턴스화해서 Thead 생성자에 argument로 넘겨줘야함
+      - currentThread() 호출해서 현재 스레드의 참조를 얻어와야 호출 가능
+    - public class MyThread extends Thread
+      - 상속받은 클래스를 스레드로 사용
+      - 스레드 클래스의 method을 바로 사용
+- start() 메소드를 호출하면, JVM은 알아서 스레드를 위한 콜 스택을 만들어주고 context switching을 통해 스레드로 동작하도록 해줌
+- 스레드 상태
+  - NEW : 스레드가 생성되고, start()가 호출 X
+  - RUNNABLE : 실행 중 or 실행 가능 상태
+  - BLOCKED : 동기화 블록에 의해 일시 정지된 상태 (lock 풀릴 때까지 wait)
+  - WAITING : 실행가능하지 않은 일시 정지 상태
+  - TERMINATED: 스레드 작업이 종료된 상태
+- synchronized를 활용하여 임계 영역(공유 자원에 하나의 스레드만 접근) 설정 가능
+- wait() : 스레드가 lock을 가지고 있으면, lock 권한 반납하고 대기하게 만듦
+- notify() : 대기 상태인 스레드에게 다시 lock 권한을 부여하고 수행하게 만듦
