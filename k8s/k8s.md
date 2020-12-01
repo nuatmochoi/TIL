@@ -1,5 +1,10 @@
 # 쿠버네티스
 
+- 2014년 구글에서 처음 개발
+- 컨테이너 여러 개를 한 번에 관리하는 기술은 Container Orchestration이라고 명명됨
+- CNCF (CLoud Native Computing Foundation, 클라우드 기술 표준형을 개발하는 재단)에서 쿠버네티스를 중심 프로젝트로 편성
+- 그 결과, 쿠버네티스는 Container Orchestration의 표준이 됨.
+
 ## 분산 시스템
 
 - 보안이 어려움
