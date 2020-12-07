@@ -136,3 +136,8 @@
     - trigger를 눌러 input S3 bucket을 연동하면 되며
     - prefix에 `inputs/` 등을 입력하여 입력 폴더를 지정할 수도 있다.
     - 해당 s3 버킷에 영상을 업로드했을 때 output 버킷에 변환된 영상 디렉토리가 생성되면 성공적으로 MediaConvert가 작동 된 것임. `CloudWatch`와 `MediaConvert`의 Job list에서도 성공적으로 실행된 것을 확인 할 수 있다.
+
+### Reference
+
+- [https://docs.aws.amazon.com/ko_kr/mediaconvert/latest/ug/mediaconvert-guide.pdf](https://docs.aws.amazon.com/ko_kr/mediaconvert/latest/ug/mediaconvert-guide.pdf)
+- [https://github.com/aws-samples/aws-media-services-vod-automation/blob/master/MediaConvert-WorkflowWatchFolderAndNotification/README-tutorial.md](https://github.com/aws-samples/aws-media-services-vod-automation/blob/master/MediaConvert-WorkflowWatchFolderAndNotification/README-tutorial.md)
