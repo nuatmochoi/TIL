@@ -13,6 +13,18 @@
 - 악의적 공격 보호 및 안정장치
   - AWS WAF / AWS Shield 통합
 
+## 동영상 스트리밍
+
+- 참조: https://blog.embian.com/123
+
+1. 동영상 시청을 위해 sined cookie 발급하는 API 호출
+   (http://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-cookies.html)
+2. Signed URL로 비디오 파일 요청
+   (http://docs.aws.amazon.com/ko_kr/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-urls.html)
+
+위의 방법을 통해 S3 내의 HLS 파일을 받아와 플레이어에서 재생
+(video 태그와 hls.js를 통해 라이브 스트리밍 가능)
+
 ## Reference
 
 https://cloud.hosting.kr/techblog_180716_a-match-made-in-the-cloud/
