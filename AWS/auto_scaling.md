@@ -1,6 +1,6 @@
 # AWS Auto Scaling
 
-트래픽이 증가할 때 인스턴스를 늘
+트래픽이 증가할 때 인스턴스를 늘리는 것 외에도 트래픽이 줄어듦에 따라 줄여주는 것도 Auto Scaling에 포함
 
 1. 특정 주기마다 로드밸런서의 네트워크 정보와 서버의 시스템 리소스 메트릭 정보들을 모니터링 서비스로 수집
 2. AWS CloudWatch에서 입계값을 벗어나는 것을 감지하면 Auto Sacling 그룹으로 알람 전송 (Auto Scaling 정책 Trigger)
