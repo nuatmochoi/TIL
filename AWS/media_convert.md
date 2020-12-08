@@ -42,7 +42,7 @@
 
 - VODLambdaRole이란 이름으로 IAM 역할 생성 / 역할 타입은 AWS Lambda
 - AWSLambdaBasicExecutionRole 정책을 attach (for CloudWatch logs permission) - [권한] 탭에서 [인라인 정책 추가] - [Json] 탭 클릭
-- 다음 내용 추가 하고 Resource 부분을 지우고 아까 저장했던 ARN 값으로 대체
+- 추가한 정책 내 [인라인 정책 추가]에 들어가서 [JSON] 누른 다음 내용 추가
   ```json
   {
   	"Version": "2012-10-17",
@@ -78,18 +78,20 @@
   	]
   }
   ```
+- `ARNforMediaConvertRole`라고 적힌 Resource 부분을 지우고 아까 저장했던 ARN 값으로 대체
+- 이름에 `VODLambdaPolicy` 입력하고 정책 생성
 
 8. 비디오 변환을 위한 Lambda 함수 작성
 
    - [Lambda 함수 생성] 클릭
    - Name에 VODLambdaConvert 입력
    - Python 3.8 입력
-   - Role을 [기존 역할 선택] 누른 후 VODLambdaConvertRole 선택
+   - Role을 [기존 역할 선택] 누른 후 VODLambdaRole 선택
    - [job.json](https://github.com/aws-samples/aws-media-services-vod-automation/blob/master/MediaConvert-WorkflowWatchFolderAndNotification/job.json) 과 [convert.py](https://github.com/aws-samples/aws-media-services-vod-automation/blob/master/MediaConvert-WorkflowWatchFolderAndNotification/convert.py)를 다운 받아 zip으로 압축
    - 함수에서 Configuration 탭에 들어가 [zip 파일 업로드] 선택
    - 압축 파일을 업로드하고, handler를 _convert.handler_ 로 수정
    - 환경 변수를 다음과 같이 입력
-     - Destination = `<input bucket name>`
+     - DestinationBucket = `<outputput bucket name>`
      - MediaConvertRole = `arn:aws:iam::ACCOUNT NUMBER:role/MediaConvertRole`
      - Application = VOD
 
@@ -134,6 +136,7 @@
 
 10. Lambda 함수에 input S3 bucket을 트리거로 설정
     - trigger를 눌러 input S3 bucket을 연동하면 되며
+    - 이벤트 같은 경우는 `모든 객체 생성` 으로 설정
     - prefix에 `inputs/` 등을 입력하여 입력 폴더를 지정할 수도 있다.
     - 해당 s3 버킷에 영상을 업로드했을 때 output 버킷에 변환된 영상 디렉토리가 생성되면 성공적으로 MediaConvert가 작동 된 것임. `CloudWatch`와 `MediaConvert`의 Job list에서도 성공적으로 실행된 것을 확인 할 수 있다.
 
