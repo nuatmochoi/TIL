@@ -1,6 +1,6 @@
 # AWS Cloudfront
 
-- CloudWatch는 전 세계적으로 정적, 동적인 웹 컨텐츠, 비디오 스트리밍 및 API를 안전하고 규모에 맞게 제공하는 CDN (Content Dilivery Network) 서비스이다.
+- CloudFront는 전 세계적으로 정적, 동적인 웹 컨텐츠, 비디오 스트리밍 및 API를 안전하고 규모에 맞게 제공하는 CDN (Content Dilivery Network) 서비스이다.
 - 에지 로케이션이라고 하는 전세계 데이터 센터 네트워크를 통해 콘텐츠 제공
 - 에지 서버로 콘텐츠를 캐시하고 제공하면 시청자와 가장 가까운 위치에서 콘텐츠 제공
 
