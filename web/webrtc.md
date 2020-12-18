@@ -1,9 +1,10 @@
 # WebRTC
 
-webRTC는 중간자 없이 브라우저 간 오디오, 영상 미디어를 스트림하고 데이터를 교환할 수 있도록 하는 기술
+webRTC는 중간자 없이 브라우저 간 오디오, 비디오, 데이터를 스트림하고 데이터를 교환할 수 있도록 하는 기술
 
 ## 개념
 
+- WebRTC는 자바스크립트 API를 활용한다.
 - peer 간 연결은 `RTCPeerConnection` 인터페이스를 통해 이루어진다.
 - 커넥션 이후 `MediaStream` (미디어 스트림)과 `RTCDataChannel` (데이터 채널)을 커넥션에 연결할 수 있다.
   - RTCPeerConnection
@@ -23,7 +24,7 @@ webRTC는 중간자 없이 브라우저 간 오디오, 영상 미디어를 스�
 1. **미디어 장치 세팅** - `getUserMedia()` 함수를 이용하여 일치하는 미디어 장치(마이크, 카메라)에 접근
 
    ```js
-   const openMediaDevices = async constraints => {
+   const openMediaDevices = async (constraints) => {
    	return await navigator.mediaDevices.getUserMedia(constraints);
    };
 
@@ -68,7 +69,7 @@ webRTC는 중간자 없이 브라우저 간 오디오, 영상 미디어를 스�
      		iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
      	};
      	const peerConnection = new RTCPeerConnection(configuration);
-     	signalingChannel.addEventListener('message', async message => {
+     	signalingChannel.addEventListener('message', async (message) => {
      		if (message.answer) {
      			const remoteDesc = new RTCSessionDescription(message.answer);
      			await peerConnection.setRemoteDescription(remoteDesc);
@@ -84,7 +85,9 @@ webRTC는 중간자 없이 브라우저 간 오디오, 영상 미디어를 스�
    - 수신 측에서는 `RTCPeerConnection`를 생성하기 전에 호출 측의 suggestion을 기다린다. 완료되면 `setRemoteDescription()`을 통해 수신된 제안을 설정, 다음으로 `createAnswer()`을 호출하여 받은 suggestion에 대한 answer을 생성한다. 이것은 `setLocalDescription()`을 사용하여 신호채널을 통해 다시 호출 측으로 전송된다.
    - 원격 피어의 설정을 완료한 것이고, 피어 간의 연결을 위해서는 ICE 후보를 수집하고 신호채널을 통해 다른 peer로 전송해야 한다.
 
-4. ICE 후보
+#### ICE 후보
+
+- 잠재적으로 연결될 수 있는 엔드포인트를 ICE 후보라고 한다.
 
 ## Reference
 
