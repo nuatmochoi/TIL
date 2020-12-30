@@ -39,7 +39,7 @@ def lambda_handler(event, context):
 
 - 다른 AWS 서비스(API 게이트웨이, DynamoDB, S3 등)와 연동되기 때문에 Lambda가 사용되는 것.
 - Trigger를 통해서 다른 서비스에서 변화가 생겼을 때 람다를 실행할 수 있다.
-- 데이터 변화, 직접 또는 endpoint 호출, 리소스 상태 변화, CloudWatch 알람, Cron 주기별
+- 데이터 변화, 직접 또는 endpoint 호출, 리소스 상태 변화, CloudWatch 알람(CloudWatch Event Rule), Cron 주기별
 - IAM ROLE을 다르게 설정하더라도 동일한 트리거에 대해 여러 개의 Lambda 함수를 연결할 수 없다.
 
 ### S3와 연동
