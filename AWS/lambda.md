@@ -20,6 +20,7 @@ def lambda_handler(event, context):
 
 - lambda_handler는 약속된 이름의 함수. 람다를 실행했을 때 이 함수가 실행되도록 약속되어 있음.
 - save하고 Deploy 버튼을 눌러야 실행 가능한 상태가 된다.
+- 지원하지 않는 라이브러리라면 layer에 zip 파일로 업로드해야만 한다.
 
 ### 콘솔에서 테스트
 
