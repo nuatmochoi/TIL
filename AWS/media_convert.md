@@ -10,21 +10,10 @@
     [
     	{
     		"AllowedHeaders": ["*"],
-    		"AllowedMethods": ["PUT", "POST", "DELETE"],
-    		"AllowedOrigins": ["http://www.example1.com"],
-    		"ExposeHeaders": []
-    	},
-    	{
-    		"AllowedHeaders": ["*"],
-    		"AllowedMethods": ["PUT", "POST", "DELETE"],
-    		"AllowedOrigins": ["http://www.example2.com"],
-    		"ExposeHeaders": []
-    	},
-    	{
-    		"AllowedHeaders": [],
-    		"AllowedMethods": ["GET"],
+    		"AllowedMethods": ["GET", "HEAD", "POST", "PUT", "DELETE"],
     		"AllowedOrigins": ["*"],
-    		"ExposeHeaders": []
+    		"ExposeHeaders": [],
+    		"MaxAgeSeconds": 3000
     	}
     ]
     ```
