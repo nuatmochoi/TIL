@@ -42,6 +42,24 @@
 - 이렇게 여러 서버에 걸쳐 있는 여러 컨테이너를 관리하는 기법은 컨테이너 오케스트레이션이라고 한다.
 - 컨테이너 오케스트레이션의 표준은 쿠버네티스(k8s)이다.
 
+## Docker Network Mode
+
+1. bridge
+  - docker 기본 네트워크 방식
+  - 각 컨테이너마다 고유한 network namespace 영역이 생성
+  - docker daemon을 실행하면 docker0라는 bridge가 생성되며 해당 bridge에 container들의 인터페이스들이 하나씩 binding되는 구조
+2. host
+  - 컨테이너가 독립적인 네트워크 영역을 갖지 않고 host와 네트워크를 함께 사용
+  - `docker run --net=host httpd web01` 과 같이 생성
+  - 컨테이너의 ip와 인터페이스 정보는 host의 네트워크 정보와 동일
+  - host옵션으로 생성된 컨테이너는 bridge를 사용하지 않으므로 docker0에 바인딩되지 않는다.
+3. container
+  - 기존 존재하는 다른 컨테이너의 network 환경을 공유
+4. none
+  - 격리된 네트워크 영역을 가지지만, 인터페이스가 없는 상태로 컨테이너 생성
+  - bridge에도 연결되지 않은 상태이며, 이 상태로는 외부 통신 불가
+  - 인터페이스를 직접 커스터마이징하기 위한 옵션
+
 ## How to fix docker error processing tar file
 
 공간이 부족하거나 권한 문제로 발생하는 도커 오류
