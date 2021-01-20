@@ -2,8 +2,13 @@
 
 [https://ko.coursera.org/learn/aws-fundamentals-cloud-migration](https://ko.coursera.org/learn/aws-fundamentals-cloud-migration)
 
-- AWS Cloud Adoption Framework
-- vertical scaling (scaling up) / horizontal scaling (scaling out)
+- AWS Cloud Adoption Framework (CAF) : 조직 내 비즈니스 프로세스를 클라우드로 변환하는 과정 지원
+    - Business : 아키텍쳐 접근 방식이 기술 제공과 비즈니스 핵심을 어떻게 연계하는지
+    - People : 클라우드 플랫폼을 도입하는 데 필요한 기술은 무엇인지 (역할, 교육, 자격증, 멘토링 등)
+    - Governance : 클라우드 투자를 관리 및 측정하는 데 필요한 조직 프로세스 업데이트
+    - platform : 기술 서비스를 최적화하는 데 필요한 패턴, 도구
+    - security : 규정 준수을 달성하는 데 필요한 보안, 위험관리 구현
+    - operations : 최적 운영 서비스 관리
 
 ## 단계
 1. migration planning
