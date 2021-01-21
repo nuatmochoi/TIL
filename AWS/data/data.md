@@ -20,3 +20,39 @@
 - 데이터 저장은 S3에 하면 된다.
 
 - 조그만 데이터로도 Athena, QuickSight로 데이터 분석 가능
+
+## 완전 관리형 데이터베이스
+- 고객은 스키마 설계, 쿼리 작성, 쿼리 최적화에만 신경
+- AWS에서 백업, 복구, 보안, 스케일링, 모니터링 등 모두 지원
+- MySQL, PostgreSQL, MariaDB 등 오픈소스DB 지원
+    - 상용 DB보다 성능, 가용성 안 좋다 
+    - 이를 해결하기 위해 **Amazon Aurora**
+        - MySQL PostgreSQL 오픈소스와 호환
+            - MySQL의 5배, PostgreSQL의 3배 쓰루풋 
+            - 고가용성 보장
+        - 1/10 비용으로 상용 데이터베이스 수준의 성능 & 가용성 제공
+        - Aurora Serverless
+            - 데이터베이스를 shutdown 시켜놓았을 때 EC2에 대한 과금 X
+            - 자동으로 용량 조절
+            - 초당 지불 (최소 1분)
+            - 자주 사용하지 않거나, 주기적인 워크로드에 적합
+            - HTTP 기반 API 제공
+
+## AWS DB 종류
+- 관계형 : RDS, Aurora (ACID)
+- Key-value : DynamoDB (높은 처리량, 낮은 지연)
+    - Aurora와는 달리 서버리스
+    - 아이템(항목) (== RDB의 row)
+    - Attributes (속성) (== RDB의 column)
+        - 모든 아이템들이 동일한 속성을 가지지 않아도 된다
+        - 테이블이 생성된 이후에도 원하는 아이템에 대해서 속성을 추가할 수 있다.
+    - 파티션키 지정 (데이터 분산이 잘 되도록)
+    - 조회를 빠르게하기 위해 소트키를 옵션으로 지정
+    
+- Document : DocumentDB
+- In-memory : ElastiCache (마이크로 초단위 레이턴시, 애플리케이션에서 바로 접근 가능한 캐시 구조)
+- Graph : Neptune
+- Time-series : Timestream (시계열 데이터)
+- Ledger : QLDB (블록체인)
+- Wide column : Keyspaces (아파치 카산드라 호환)
+
