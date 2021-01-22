@@ -30,6 +30,7 @@
 - AWS Cloud Development Kit(CDK) : VPC 생성하는 코드가 2줄 내지, IaC로 코드로 관리할 수 있는 것
     - CloudFormation 템플릿화, DevOps가 CloudFormation으로 구현되는 것이다
     - CloudFormation의 러닝 커브를 줄여 준다.
+    - Typescript, Python, Java 등 범용 프로그래밍 언어로 IaC가 가능해진다.
 
 - 블루-그린 배포 
     - 블루 : 기존 버전
@@ -40,3 +41,5 @@
     - 이상을 감지하고, 노이즈 제거
     - 연관관계를 몰라서 의미를 찾기 힘든 경우를 찾아줌
     - CDK 혹은 CloudFormation 단위로 적용 가능
+
+- CI/CD 과정 중에 어떤 로직을 더할 것인가가 중요 (ex> CI/CD 과정 중에 jmeter를 통한 부하 테스트 모니터링 등)
