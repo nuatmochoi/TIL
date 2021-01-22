@@ -1,4 +1,4 @@
-# Stoage Migration
+# Storage Migration
 
 ## AWS EBS
 
