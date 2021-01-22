@@ -62,7 +62,7 @@
 
 ## How to fix docker error processing tar file
 
-공간이 부족하거나 권한 문제로 발생하는 도커 오류
+공간이 부족하거나 권한 문제로 발생하는 도커 오류 (컨테이너 배포가 잦은 환경이라면 내려받은 도커 이미지나 종료한 컨테이너가 디스크 용량을 많이 차지)
 
 1. sudo docker image prune
 2. sudo systemctl stop docker
@@ -72,3 +72,7 @@
 이후 permission issue가 발생한다면
 
 5. sudo chmod 666 /var/run/docker.sock
+
+`docker system prune -a` 명령어 하나로도 해결할 수 있음.
+  - 이를 야간에 cron 설정으로 스케줄링하는 방법도 있음
+
