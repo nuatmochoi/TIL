@@ -5,6 +5,17 @@
 
 로컬 PC, AWS, GCP, Azure 등 환경에 관계없이 빠르게 배포 및 테스트할 수 있다.
 
+## Container 가상화
+![VM:container](https://images.contentstack.io/v3/assets/blt300387d93dabf50e/bltb6200bc085503718/5e1f209a63d1b6503160c6d5/containers-vs-virtual-machines.jpg)
+
+- Virtual Machine 가상화
+  - Hypervisor 위에 Guest OS가 구동
+  - 별도의 VM과 OS를 필요로 하기 때문에 자원의 비효율성(용량, 메모리)
+- Container 가상화
+  - Docker 엔진을 통해 각 App이 OS 자원을 직접 사용 (앱 실행에 필요한 자원만 사용)
+  - 별도의 OS 없이 Docker 엔진 공유 (가벼움)
+
+
 ## Docker image
 
 이미지는 컨테이너 실행에 필요한 파일과 설정값을 포함하고 있는 것이다. 즉, 컨테이너는 이미지를 실행한 상태이다.
