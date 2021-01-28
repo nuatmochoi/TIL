@@ -1,5 +1,33 @@
 # VPC
 
+서브넷 마스크의크기는 /16 ~ /28 사이이다.
+
+## NACL & Security Group
+- NACL (Network aces control list)
+    - 서브넷으로 들어오려는 모든 인터넷 패킷은 NACL을 거치고, 패킷의 permission을 판단
+    - Stateless (인바운드, 아웃바운드 주소/포트를 모두 선언해야 힘)
+- Security Group
+    - 같은 서브넷 내에서, 허용되는 IP를 제외하고 block
+    - Stateful (인바인드가 허용이면, 아웃바운드는 자동으로 허용)
+
+## 고가용성
+- 두 번째 서브넷을 만들고, Auto Scaling을 사용해 새 리소스가 두 번째 서브넷으로 자동 시작되게 할 수 있음
+- ALB는 서브넷의 엔드 포인트 간 로드를 분산할 수 있음 (A/B 테스트 및 블루/그린 배포 가능)
+- 별도의 가용 영역(AZ)에 두 번째 서브넷을 유지함으로써, 한 AZ의 리소스를 사용할 수 없더라도 다른 AZ에서 사용 가능 (다중 AZ)
+- 새 서브넷에서 라우팅 테이블을 따로 생성하지 않고, 이전에 생성한 라우팅 테이블과 연결
+- ELB는 연결된 리소스에 상태 체크를 하여 장애 조치를 처리함
+
+## 3-Tier VPC
+Single Tier VPC는 모든 것을 하나의 서브넷에 넣기 떄문에 보안에 취약 (개인 블로그나 웹 사이트 등의 애플리케이션의 경우에는 비용 효율적일 수 있다.)
+
+- NAT, ELB (Public Subnet) : 들어오는 트래픽 (ALB), 나가는 트래픽(NAT)
+    - 가장 적게 IP가 필요 (ex> /22)
+- App (Private Subnet)
+    - 가장 많은 IP가 필요 (ex> /20)
+- Data (Private Subnet) 
+    - 퍼블릭보다는 많이 필요하지만, App에 비해서는 적게 (ex> /21)
+- 3티어 설계에 적합한 트래픽 패턴 - IGW -> ALB -> App -> Data -> App -> NAT -> IGW
+
 - `enableDnsHostnames` 
     - PC에서 시작된 인스턴스가 퍼블릭 DNS 호스트 이름을 가져오는지 여부
     - `true`인 경우 VPC의 인스턴스는 퍼블릭 DNS 호스트 이름을 갖지만, `enableDnsSupport`가 `true`인 경우에만 가능
