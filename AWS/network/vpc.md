@@ -1,6 +1,9 @@
 # VPC
 
+## CIDR
 서브넷 마스크의크기는 /16 ~ /28 사이이다.
+- /16 : 16bit의 CIDR을 사용하면 B클래스와 동일하게 네트워크 할당 (16 비트 네트워크 아이디 + 16비트 호스트 아이디 => 2^16 == 65536개 IP range 사용 가능)
+- /24 : 16bit 네트워크 아이디 + 8비트 서브넷 아이디 + 8비트 호스트 아이디 => 2^8 == 251개 (나머지 5개는 예약 IP)의 IP range 사용 가능
 
 ## NACL & Security Group
 - NACL (Network aces control list)
