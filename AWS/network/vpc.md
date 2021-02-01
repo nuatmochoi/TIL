@@ -1,4 +1,12 @@
 # VPC
+사용자 지정된 가상의 네트워크 환경이다. 논리적으로 격리되어 있는 공간이다.
+리전을 선택하고, 원하는 IP range를 가장 먼저 설정한다.
+가용영역 단위로 서브넷을 생성하고, 서브넷의 목적에 따라 라우팅 테이블과 연결한다.
+
+## 서브넷
+서브넷의 종류에는 크게 Public Subnet과 Private Subnet이 있다.
+- Public Subnet : Internet Gateway와 연결된 서브넷
+- Priavate Subdnet : Internet Gateway와 연결되지 않은 서브넷. 펌웨어 패치 등을 위해 NAT Gateway와 연결되어 있다.
 
 ## CIDR
 서브넷 마스크의크기는 /16 ~ /28 사이이다.
