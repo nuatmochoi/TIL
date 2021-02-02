@@ -64,5 +64,22 @@ Single Tier VPC는 모든 것을 하나의 서브넷에 넣기 떄문에 보안�
     - VPC 1개당 125개가 넘는 VPC Peering이 필요하다면, Transit Gateway 사용  
     - 단순한 구조이지만, VPC Peering 보다 많은 비용 청구
 
+## 온프레미스와 VPC 연결
+### VPN
+- IPSec 네트워크 프로토콜 기반 VPN 연결
+- VPN Tunnels은 기본적으로 이중화(되어 있고, TLS 통신이기 때문에 안전하게 통신 가능
+- 인터넷 기반이기 때문에 성능, 품질이 전용선보다는 떨어지고, 지연이 생길 수 있다. (Bandwidth와 Latency가 가변적)
+- AWS 상에 VPN을 연결하기 위한 Virtual Private Gateway(VGW)가 만들어지고, 해당 VGW와 온프레미스의 CGW(Customer Gateway)가 통신
+### Direct Connect
+- VPN처럼 AWS와 직접 연결하지 않고, 중간에 AWS와 연결된 DX Location이 있어, 해당 DX Location 까지만 전용회선을 구축하면 되는 형태
+    - 이후 DX Location 내 고객/파트너의 상면에 고객의 라우터를 설치, AWS Cage에 있는 AWS의 라우터와 연결한다. 이 작업을 Cross Connect라고 부름 
+- DX Location은 국내에서 가산의 KNIX, 평촌의 LG U+가 있다. 
+- 전용선을 사용하기 때문에 Bandwidth와 Latency가 일관적
+- 이중화 : 1 DX + 1 VPN (백업) *or* 2 DX Router *or* 2 DX Locations
+    - VPN 백업
+        - 라우팅의 우선 순위는 무조건 VPN < DX
+        - DX에 문제가 발생할 때 VPN으로 Failover가 되는 구성
+        - 즉, 하나만 active 상태로 존재한다.
+
 ## Reference
 - [VPC Peering과 Transit Gateway 어떻게 다를까](https://dev.classmethod.jp/articles/different-from-vpc-peering-and-transit-gateway/)
