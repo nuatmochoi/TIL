@@ -22,6 +22,7 @@
 3. 통화료 (지역마다 다르며, 대한민국 수신이라면 분당 $0.0251)
 
 ## 과정
+- 현재 서울 리전에서 서비스하고 있지 않기 때문에, 아웃바운드 콜을 한국으로 연결하기 위해서는 support case를 열고 whitelist에 KR을 추가해달라는 요청을 해야한다.
 - 기본적으로 소프트폰이고, 프로토콜은 WebRTC 사용
 - https://github.com/aws/connect-rtc-js (softphone 개발)
 - https://github.com/aws/amazon-connect-streams (웹으로 자체 커스텀)
