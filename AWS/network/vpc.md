@@ -65,21 +65,40 @@ Single Tier VPC는 모든 것을 하나의 서브넷에 넣기 떄문에 보안�
     - 단순한 구조이지만, VPC Peering 보다 많은 비용 청구
 
 ## 온프레미스와 VPC 연결
+
 ### VPN
 - IPSec 네트워크 프로토콜 기반 VPN 연결
 - VPN Tunnels은 기본적으로 이중화(되어 있고, TLS 통신이기 때문에 안전하게 통신 가능
 - 인터넷 기반이기 때문에 성능, 품질이 전용선보다는 떨어지고, 지연이 생길 수 있다. (Bandwidth와 Latency가 가변적)
 - AWS 상에 VPN을 연결하기 위한 Virtual Private Gateway(VGW)가 만들어지고, 해당 VGW와 온프레미스의 CGW(Customer Gateway)가 통신
+
 ### Direct Connect
 - VPN처럼 AWS와 직접 연결하지 않고, 중간에 AWS와 연결된 DX Location이 있어, 해당 DX Location 까지만 전용회선을 구축하면 되는 형태
     - 이후 DX Location 내 고객/파트너의 상면에 고객의 라우터를 설치, AWS Cage에 있는 AWS의 라우터와 연결한다. 이 작업을 Cross Connect라고 부름 
 - DX Location은 국내에서 가산의 KNIX, 평촌의 LG U+가 있다. 
 - 전용선을 사용하기 때문에 Bandwidth와 Latency가 일관적
-- 이중화 : 1 DX + 1 VPN (백업) *or* 2 DX Router *or* 2 DX Locations
-    - VPN 백업
+- 이중화 방법 (반기에 한번 씩 Direct Connect의 정기 점검이 있어 고가용성 보장을 위해 이중화가 필요)
+    1. Direct Connect + VPN 백업
         - 라우팅의 우선 순위는 무조건 VPN < DX
         - DX에 문제가 발생할 때 VPN으로 Failover가 되는 구성
-        - 즉, 하나만 active 상태로 존재한다.
+        - 이중화 방법 중 가장 비용이 싼 방법
+        - 즉, Direct Connect는 active 상태, VPN은 failover를 위해 standby 상태로 존재한다.
+    2. DX Location 내에 inter-connection을 2개 설정하는 방법
+    3. LAG (Link Aggregation Group) : 전용선의 최대 Bandwidth가 10Gbps까지이기 때문에, 이것을 4개 묶어 40Gbps까지 높인 방법
+    4. DX Location과 전용선을 모두 2개씩 구축하는 방법 (가장 비용이 비쌈, 주로 금융권에서 사용)
+
+#### Direct Connect의 active/standby 우선순위
+
+대부분의 고객들은 일관적인 트래픽의 flow를 위해 active/standby 방식을 선호하며, BGP parameter를 통해 이것을 조절할 수 있다.
+
+1. global적으로 longest prefix(CIDR가 더 긺)가 우선순위를 가진다.
+2. AWS to On-Premise 트래픽 : AS prepending 파라미터를 통해 보다 적은 AS-PATH를 가지는 회선이 우선순위 (61000 > 61000, 61000)
+3. On-Premise to AWS 트래픽 : BGP의 Local Preference 파라미터를 통해 우선순위가 높은 회선을 사용 (7300 > 7100)
+
+따라서 동일한 회선이 항상 사용되도록 BGP parameter를 조정하는 것이 필요
 
 ## Reference
 - [VPC Peering과 Transit Gateway 어떻게 다를까](https://dev.classmethod.jp/articles/different-from-vpc-peering-and-transit-gateway/)
+- [AWS Summit Seoul 2016 - AWS Direct Connect 및 VPN을 이용한 클라우드 아키텍쳐 설계 (Steve Seymour, AWS)](https://www.youtube.com/watch?v=kXLpCCbmIWQ&ab_channel=AmazonWebServicesKorea)
+- [KINX와 함께 하는 AWS Direct Connect 도입 - 남시우 매니저(KINX)](https://www.youtube.com/watch?v=8X1g2w-0fvM&ab_channel=AmazonWebServicesKorea)
+- [실전! AWS 하이브리드 네트워킹 (AWS Direct Connect 및 VPN 데모 세션) - 강동환, AWS SA:: AWS Summit Online Korea 2020](https://www.youtube.com/watch?v=yMgwrkqfcbg&ab_channel=AmazonWebServicesKorea)
