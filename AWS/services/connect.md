@@ -27,6 +27,12 @@
 - https://github.com/aws/connect-rtc-js (softphone 개발)
 - https://github.com/aws/amazon-connect-streams (웹으로 자체 커스텀)
 
+1. agent가 웹 브라우저를 이용해 Amazon Connect 애플리케이션에 액세스
+2. agent는 WebRTC를 통해 브라우저에서 Amazon Connect에 대한 음성 연결을 설정. signaling 통신은 TLS로 암호화, 오디오는 SRTP를 통해 암호화
+3. PTSN(기존 전화 통신망)에 대한 연결은 통신 사업자와 Amazon Connect 간 private network 연결로 이루어짐. 공유 네트워크 사용 시 singnaling 통신은 TLS로 암호화, 오디오는 SRTP를 통해 암호화
+4. 통화 녹음은 Amazon Connect에 액세스 권한이 부여된 Amazon S3 버킷에 저장
+5. Amazon S3 서버 측 암호화는 고개 소유의 KMS 키를 사용해 통화 녹음을 암호화
+
 ## 타 AWS 서비스와의 연계
 - Polly : 한국어를 활용한 콜센터 시나리오 구축이 가능하다.
     - AI TTS : 문맥에 따라 달라지는 발음
