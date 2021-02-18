@@ -8,6 +8,8 @@
 - 운영이 없고, SQL, Script 등에만 집중
 - Amazon Athena : 서버 운영 없이 SQL 기반으로 분석
     - 분석할 데이터를 S3에 Json, csv, parquet 등 포맷으로 넣으면, S3 데이터로 테이블 생성하여 SQL 분석 가능
+        - Data Source로는 S3만 가능. 
+        - DynamoDB는 불가. DDB 사용하려면 lambda -> kinesis firehose -> S3 -> Athena 순서로 구성해야 함.
     - User Defined function (UDF) 지원 (SQL 뿐만으로 부족한 부분 해결)
     - 1Tb -> $5.75 (비용 절감을 위해 parquet으로 변환)
 - AWS Glue : 데이터 카탈로그를 관리하거나 spark 경험에서 ETL 작업하려면 선택
