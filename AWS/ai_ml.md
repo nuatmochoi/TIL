@@ -26,7 +26,7 @@
 - lex : 챗봇
 - personalize : 추천 (앙상블은 안된다. 하나의 알고리즘만)
 - forecast : 추세 분석 (time series, 시간 기반 추천)
-- fraudDetector 이상 징후 탐지
+- fraudDetector : 이상 징후 탐지
 - codeGuru : 코드 품질
 
 ## Sagemaker
