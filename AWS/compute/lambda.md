@@ -5,7 +5,7 @@
 - 서버 프로비저닝 및 관리 없이 코드 실행
 - 사용량에 따라 지속적으로 백엔드에서 규모가 자동으로 지정되기 때문에 Scaling을 신경쓸 필요가 없다.
 - 높은 가용성 및 자동 복구
-- 1초에서 최대 15분(900초) 동안 실행하도록 함수를 구성할 수 있게 되어 있다. 
+- 1초에서 최대 15분(900초) 동안 실행하도록 함수를 구성할 수 있게 되어 있다.
   - 900초의 제한시간이 부족한 경우에 AWS Step Functions의 사용이 고려될 수 있다. Step Functions을 통해 Lambda Function을 결합(lambda에서 lambda 호출)할 수 있다.
 
 ## 작동법
@@ -14,6 +14,7 @@
 2. 새로 작성
    - 함수 이름
    - 런타임 : 어떤 언어로 할 것인지
+   - NodeJS를 사용할 경우에 npm module을 포함하기 위해서 `handler` 함수가 포함된 `index.js`과 `node_modules` 을 ZIP파일로 묶어서 업로드하면 된다.
 
 ```py
 def lambda_handler(event, context):
