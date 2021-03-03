@@ -1,5 +1,7 @@
 # AWS CDK
 
+CDK(Cloud Development Kit)란 terraform, CloudFormation과 같은 Iac(Infrastructure as Code) 서비스로, YAML 문법이 아닌 typescript나 python 등 프로그래밍 언어로 IaC를 가능하게 해주는 도구이다.
+
 1.  cdk synth : AWS CDK 애플리케이션을 CloudFormation 템플릿으로 컴파일
 2.  cdk bootstrap : AWS 환경에 CDK Toolkit을 위한 스택을 배포 (처음 CDK 스택을 deploy한다면 필요한 사전 작업)
 
