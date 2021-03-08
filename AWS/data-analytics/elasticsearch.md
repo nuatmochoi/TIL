@@ -12,5 +12,13 @@
     - 모든 segment는 immutable하기 때문에, 병합되는 segment가 삭제되기 이전에, 새로운 segment를 생성. 
     - 따라서 디스크 사용량에 변화가 생김. 병합 작업은 디스크 I/O 등 리소스에 민감하다.
 
+## 단점
+- 분산처리를 통해 실시간으로 처리하는 것으로 보이지만, 내부적으로 commit, flush 등의 작업을 거치므로 실시간은 아니다.
+- 트랜잭션, Rollback을 지원하지 않음 (클러스터의 성능을 위해)
+- 데이터의 업데이트를 지원하지 않음. 업데이트 명령이 오면 기존 문서를 삭제하고 새로운 문서 사용 
+    - 대신에 Immutable이라는 장점이 있다.
+    - Segment가 Immutable한 이유는 캐싱 때문이다. Lucene은 읽기 속도를 높이기 위해 OS의 파일시스템 캐싱에 의존하고 있음. 빠른 액세스를 위해 hot segment를 메모리에 상주하게 유지시키는 식으로 작동한다.
+    - 
+
 ## Reference
 - https://www.elastic.co/kr/blog/how-many-shards-should-i-have-in-my-elasticsearch-cluster
