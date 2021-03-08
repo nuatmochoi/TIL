@@ -17,7 +17,7 @@
 - 트랜잭션, Rollback을 지원하지 않음 (클러스터의 성능을 위해)
 - 데이터의 업데이트를 지원하지 않음. 업데이트 명령이 오면 기존 문서를 삭제하고 새로운 문서 사용 
     - 대신에 Immutable이라는 장점이 있다.
-    - Segment가 Immutable한 이유는 캐싱 때문이다. Lucene은 읽기 속도를 높이기 위해 OS의 파일시스템 캐싱에 의존하고 있음. 빠른 액세스를 위해 hot segment를 메모리에 상주하게 유지시키는 식으로 작동한다.
+    - Segment가 Immutable한 이유는 캐싱 때문이다. Lucene은 읽기 속도를 높이기 위해 OS의 파일시스템 캐싱에 의존하고 있음. 빠른 액세스를 위해 hot segment를 메모리에 상주하게 유지시키는 식으로 작동한다. [참고](https://www.elastic.co/guide/en/elasticsearch/guide/current/heap-sizing.html#_give_less_than_half_your_memory_to_lucene)
     - 
 
 ## Reference
