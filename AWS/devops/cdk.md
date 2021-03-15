@@ -5,7 +5,7 @@ CDK(Cloud Development Kit)란 terraform, CloudFormation과 같은 Iac(Infrastruc
 1.  cdk synth : AWS CDK 애플리케이션을 CloudFormation 템플릿으로 컴파일
 2.  cdk bootstrap : AWS 환경에 CDK Toolkit을 위한 스택을 배포 (처음 CDK 스택을 deploy한다면 필요한 사전 작업)
 
-    - `but no credentials have been configured` 에러가 뜬다면, `aws configure`을 통해 `access key ID`, `Secret access key` 및 `region`을 설정해주는 작업이 필요하다.
+    - `but no credentials have been configured` 에러가 뜬다면, `aws configure`을 통해 `access key ID`, `Secret access key` 및 `region`을 설정해주는 작업이 필요하다. (해당 커맨드를 사용하려면 aws cli 설치가 필요함)
     - 구성 확인
 
       - vi ~/.aws/credential
