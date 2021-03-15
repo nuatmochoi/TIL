@@ -45,8 +45,11 @@
 - REST API : 100만 건당 $1.51 ~ $3.50, [HTTP API보다 다양한 기능을 제공](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-vs-rest.html)
 
 13. WebSocket API - 요청을 받고 응답하는 REST API와는 다르게 클라이언트와 백엔드 간 양방향 통신 지원
-
-- 채팅, 알림, 실시간 대시보드에 사용됨
+   - 채팅, 알림, 실시간 대시보드에 사용됨
+   - 3개의 기본 RouteKey를 가진다.
+      1. $connect : 클라이언트가 연결을 요청했을 때
+      2. $disconnect : 클라이언트가 연결을 끊었을 때
+      3. $default : 클라이언트가 별도의 `SelectionExpression`을 지정하지 않았을 때
 
 ## API Gateway vs ALB
 
