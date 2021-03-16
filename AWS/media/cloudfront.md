@@ -29,7 +29,7 @@ CloudFront를 통해 영상을 배포해야 한다.
    - `Smooth Streaming` : MS smooth streaming 사용한다면 Yes
    - `Restrict Viewer Access` : 접근 제한을 걸 때 사용하므로 No
    - `Price Class` : 전 세계의 edge를 사용할 지, 특정 리전의 edge를 사용할지.
-
+	- Object Caching 항목의 `Default TTl` : Origin으로 요청이 전달되기 전에 CloudFront 캐시에 머무르는 시간 (기본값 86400 == 24시간 == 1일)
 5. `http://d3kq9c1qyaz6nw.cloudfront.net/test.m3u8` 혹은 내부에 폴더가 존재한다면
    `http://d3kq9c1qyaz6nw.cloudfront.net/Test/Default/HLS/test.m3u8` 과 같은 형식으로 CDN에 접근할 수 있다.
 
