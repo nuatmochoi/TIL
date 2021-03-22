@@ -53,7 +53,8 @@
 - 마이그레이션을 모니터링할 수 있는 기능을 제공
 - Oracle to Orcle, Oracle to MySql, MySql to Aurora 등 다른 DB 플랫폼간 마이그레이션을 지원
 - 온프레미스 DB를 EC2 인스턴스에서 실행되는 DB로 마이그레이션도 가능
-- 가동 중지 시간 없이 데이터베이스를 마이그레이션할 수 있음
+- 가동 중지 시간 없이 데이터베이스를 마이그레이션할 수 있음 : 지속적 복제 옵션으로 수행했을 때
+- 스냅샷을 ㄷ생성하여 마이그레이션 했을 때는 down time이 필연적
 - AWS DMS를 사용하려면 하나의 엔드포인트가 반드시 AWS 서비스에 있어야 함 (온프레미스 to 온프레미스는 지원 X)
 
 ## AWS SSC (Storage Schema Conversion)
