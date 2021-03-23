@@ -28,6 +28,7 @@
     - CloudEndure Agent는 CloudEndure 콘솔에 연결한 다음, destination이 되는 aws region으로 api를 호출하여, 고객 계정에 staging 영역 생성
     - staging 영역은 경량 EC2 (복제 서버 - default: t3.small)와 저렴한 EBS 볼륨으로 구성
     - 복제 서버는 CloudEndure Agent로부터 데이터를 수신하여 EBS 볼륨에 Write 수행
+        - Public IP address가 자동 할당됨
     - 리눅스 machine
         1. agent 설치 
             ```sh
