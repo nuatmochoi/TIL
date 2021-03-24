@@ -52,6 +52,20 @@
 3. 고객이 CloudEndure의 [Setup & Info] - [Replication settings] 에서 Source와 Target(destination)을 지정할 수 있음
     - 온프레미스 Source의 경우 `Other Infrastructure`을 지정
 
+## CloudEndure 제한사항
+- Agent 설치 이후에 복제가 완료되면, 지속적으로 변경 사항을 추적한다. 이 변경 사항이 실제로 서버에 반영되는 것은 Test나 Cutover를 했을 때 반영된다.
+- Blueprint에서 EIP 지정을 하지 않으면, 새롭게 test 요청을 했을 때 IP 주소가 바뀐다.
+- CloudEndure 복제 속도는 다음과 같은 요소에 의해 영향을 받는다.
+    - Source에서 복제 서버까지의 up-link 속도 및 대역폭 
+        - `iperf3`로 테스트 가능. 테스팅은 replication 서버가 있는 서브넷에 linux 인스턴스를 추가해서 테스팅한다.
+        - `sudo apt-get install iperf3 -y`로 설치한 뒤, 서버 인스턴스에서 `iperf3 -s`, 클라이언트 인스턴스에서 `iperf3 -c [IP 주소]`를 실행하여 확인 가능
+    - 전체 디스크 스토리지
+    - 복제 중 디스크 변경
+        - 쓰기가 많은 서버에서 복제 데이터의 전송을 따라잡지 못할 수 있다.
+        - 따라서 DB서버 migration은 SMS나 DMS 권장
+    - 원본 서버 I/O 성능
+- 네트워크 대역폭 조절(스로틀링) 옵션을 통해 기존 시스템의 트래픽 압박을 줄일 수 있으나, Source 서버의 쓰기 작업량(최소 대역폭) 보다 높게 설정해야 한다. 그렇지 않으면 복제 작업이 완료되지 않음. 이 부분이 사전에 예측이 어렵기 때문에, 사전 test 진행을 통해 어느 정도로 제한할 것인지 결정해야 함.
+
 ## vs AWS Server Migration Service (SMS)
 |CloudEndure|SMS|
 |--- | --- |
