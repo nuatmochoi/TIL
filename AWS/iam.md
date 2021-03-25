@@ -57,6 +57,9 @@
 - 동일 어카운트 환경에서 Identity, Resource 충돌 -> 합집합 (한쪽에만 allow 라면, 다른 쪽도 요청 허용)
 - 크로스 어카운트 환경에서는 교집합  (한쪽에만 allow 라면, 다른 쪽은 요청 거부)
 
+### AWS Managed Policies
+- AdministratorAccess : 특정 IAM User에게 전체 액세스 권한을 부여함
+- PowerUserAccess : AWS IAM & AWS Organizations를 제외한 모든 리소스에 대한 작업 허용
 
 ## AWS 계정 활동 모니터링 및 감사
 - AWS CloudTrail : 모든 API 활동 기록을 확인 가능, 문제가 발생했을 때 트러블 슈팅하기 위함
