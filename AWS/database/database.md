@@ -6,7 +6,8 @@
     - 이를 해결하기 위해 **Amazon Aurora**
         - MySQL PostgreSQL 오픈소스와 호환
             - MySQL의 5배, PostgreSQL의 3배 쓰루풋 
-            - 고가용성 보장
+            - 고가용성 보장 (단일 데이터 베이스가 여러 리전에 걸쳐있음)
+            - 지역 전체 중단에도 RPO 1초, RTO 1분 미만
         - 1/10 비용으로 상용 데이터베이스 수준의 성능 & 가용성 제공
         - Aurora Serverless
             - 데이터베이스를 shutdown 시켜놓았을 때 EC2에 대한 과금 X
