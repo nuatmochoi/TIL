@@ -30,6 +30,16 @@
 분산된 환경의 컴퓨팅 노드로 인해 HPC 클러스터의 성능이 떨어질 수 있다. 분산형 배치 그룹을 통해 노드 간 통신에 latency가 짧은 네트워크 성능을 얻을 수 있다.
 1. 클러스터 : 가용영역 내에서 인스턴스를 가깝게 압축
 2. 파티션 : 인스턴스를 논리적 파티션에 분산하여, 다른 파티션의 인스턴스와 하드웨어를 공유하지 않게 함. Hadoop, Cassandra, Kafka 등의 워크로드에 필요.
-3. 분산 : 소규모의 인스턴스 그룹을 다른 하드웨어로 분산하여 관련된 오류를 줄임
+3. 분산(Spread) : 소규모의 인스턴스 그룹을 다른 하드웨어로 분산하여 관련된 오류를 줄임
+    - 일반적으로 아키텍처의 기존 네트워크 성능이 떨어짐
 4. EFA (Elastic Fabric Adapter) : OS bypass networking 메커니즘을 통해 인스턴스간 저지연, low-jitter(불안정성) 채널을 제공
 5. Amazon FSx for Lustre : HPC 등 속도가 중요한 워크로드에 Lustre를 적용. ms 초 미안의 지연시간, 최대 수백 Gbps의 처리량 및 최대 수백만 IOPS를 제공.
+
+배치 그룹 변경은 인스턴스가 중지된 상태에서 변경이 가능함.
+
+## EC2Rescue
+- EC2 Linux & Windows Server 인스턴스의 문제를 진단
+    - 인스턴스 연결 문제
+    - OS 부팅 문제
+    - 운영체제 로그 확인
+- Systems Manager Automation 및 AWSSupport-ExecuteEC2Rescue를 통해 자동으로 실행 가능
