@@ -51,6 +51,7 @@
     - 1초 미만의 지연시간으로 연속 비동기 블록 수준 데이터 복제(CDP)를 수행
 3. 고객이 CloudEndure의 [Setup & Info] - [Replication settings] 에서 Source와 Target(destination)을 지정할 수 있음
     - 온프레미스 Source의 경우 `Other Infrastructure`을 지정
+4. test 및 cutover 진행하면 대상 리전으로 마이그레이션 진행됨
 
 ## CloudEndure 제한사항
 - Agent 설치 이후에 복제가 완료되면, 지속적으로 변경 사항을 추적한다. 이 변경 사항이 실제로 서버에 반영되는 것은 Test나 Cutover를 했을 때 반영된다.
@@ -70,13 +71,13 @@
 |CloudEndure|SMS|
 |--- | --- |
 |x86을 지원하는 모든 소스|Azuze 가상머신 + VMWare + Hyper-V|
-|에이전트 설치 | 에이전트 설치 X, SMS 커넥터 사용(스냅샷 생성-> SMS-> AMI 변환)|
+|에이전트 설치 | 에이전트 설치 X, SMS 커넥터 사용(스냅샷 생성-> AMI 변환)|
 |실시간 복제에 더 적합 | 스냅샷 기반으로 복제 간 시간 1h~24h|
-|SaaS 제품으로 계정이 2개 필요 | 외부 계정없이 운용 가능|
+|네트워크 대역폭 제어 가능 | 네트워크 대역폭 제어 불가|
 |EC2 속성 사용자 지정에 Blueprint 사용 or 권장 사항 선택 | 애플리케이션 마이그레이션의 경우, AMI 변환 이후 CloudFormation 템플릿 생성(재사용성)|
 |스냅샷 저장 비용| 스냅샷 저장 비용 + S3가 서버 볼륨을 일시 저장하는 요금|
 |복제 트래픽을 AES-256으로 암호화 + TLS로 전송, BitLocker 지원 X | 서버 측 암호화 + 7일 후 버킷 객체 모두 삭제 + AMI 암호화 옵션 + TLS로 전송|
-|재해 복구 용이(CloudEndure Disaster Recovery) | 재해 복구 목적으로 설계되지 않음|
+|데이터 전송에 Direct Connect 사용 가능 | 데이터 전송에 Direct Connect 사용 불가 |
 
 ![SMS](https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2020/06/08/AWS-Server-Migration-Service.png)
 
