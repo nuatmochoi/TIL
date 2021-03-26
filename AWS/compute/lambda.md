@@ -107,6 +107,9 @@ def lambda_handler(event, context):
 - Second level of precision을 지원하지 않음 (Lambda Function이 매일 23:00 UTC에 실행되도록 설정했다면, 23:00:00부터 23:00:59 사이에 실행된다)
 - 초단위 정밀 작업이 필요하다면 EC2, ECS를 사용하는 것을 추천
 
+## Lambda @Edge
+- 초단 최대 10,000개의 Request만 처리 가능
+
 ## Reference
 
 - [AWS Lambda 자세히 살펴보기 - 조성열 시스템 엔지니어(AWS Managed Services)](https://www.youtube.com/watch?v=I_HuqdIXHEg)
