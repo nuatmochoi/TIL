@@ -21,7 +21,7 @@
     - AES 256 bit를 이용해 전송 중 데이터를 암호화
     - hand-shake, 모니터링을 위해 TCP port 443에 대한 송신 액세스 필요
     - 복제 서버와 통신하기 위해 TCP port 1500에 대한 송신 액세스 필요
-
+    - 에이전트가 복제 서버와 통신하는 것에서 Public 통신이 불가능하도록 하는 요구사항이 필요할 때, Direct Connec나 VPN으로 연결할 수 있는 옵션을 지원. 또한 이 경우에 proxy 서버를 통해서 복제 서버와 통신하도록 하는 옵션 또한 제공.
 
 ## 절차
 1. Source 시스템에 CloudEndure Agent 설치
@@ -49,6 +49,9 @@
             ```
 2. 모든 source 디스크가 staging 영역으로 복제된 후, agent는 source의 변경 사항을 추적하고 복제
     - 1초 미만의 지연시간으로 연속 비동기 블록 수준 데이터 복제(CDP)를 수행
+    - 인스턴스 기준으로 마이그레이션이 진행되기 떄문에, 여러 개의 볼륨이 한 인스턴스에 붙어 있어도 마이그레이션이 가능
+    - 중간에 볼륨 사이즈가 늘어나면, CloudEndure은 Rescanning을 통해 늘어난 볼륨 사이즈를 인식하는 과정을 수행
+        - 이러한 추가된 디스크에 대한 자동 감지는 default 옵션이며, 요구사항에 따라 자동 디스크 감지가 필요없다면 agent를 설치 커맨드 실행시에 `--force-volumes` 플래그나  `-no-auto-disk-detection` 플래그를 적용하여 비활성화
 3. 고객이 CloudEndure의 [Setup & Info] - [Replication settings] 에서 Source와 Target(destination)을 지정할 수 있음
     - 온프레미스 Source의 경우 `Other Infrastructure`을 지정
 4. test 및 cutover 진행하면 대상 리전으로 마이그레이션 진행됨

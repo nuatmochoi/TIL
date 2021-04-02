@@ -41,3 +41,9 @@ Multi-Masters의 출시로 이제는 읽기/쓰기가 모두 가능한 마스터
 - Time-series : Timestream (시계열 데이터)
 - Ledger : QLDB (블록체인)
 - Wide column : Keyspaces (아파치 카산드라 호환)
+
+## OLAP vs OLTP
+- OLAP (OnLine Analytical Processing) : 온라인 분석 처리
+    - 데이터 웨어하우스의 데이터를 전략적인 정보로 변환시키는 역할. 기본 접근, 조회, 계산, 시계열, 복잡한 모델링
+- OLTP (OnLine Transaction Processing) : 온라인 트랜잭션 처리
+    - 여러 이용자가 실시간으로 데이터 베이스의 데이터 갱신, 조회하는 작업을 처리하는 방식. 주로 금융 전산 관련

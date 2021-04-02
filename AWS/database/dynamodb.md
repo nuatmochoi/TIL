@@ -55,6 +55,7 @@
     - WCUs : 1KB
     - RCUs : 4KB, Strictly Consistent Read (Real Time)
     - RCus : 8KB, Eventually Consistent Read (Near Time)
+- 온디맨드 프로비저닝에 비해, 읽기 및 쓰기용량을 미리 예약하면 비용을 절감할 수 있다.
 
 ## Reference 
 - [DynamoDB 사용하기](https://medium.com/@bbirec/dynamodb-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-de3fc045c7b8)
