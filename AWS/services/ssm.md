@@ -16,6 +16,7 @@ SSM 서비스 내 관리형 인스턴스에 EC2 인스턴스가 포함되면 다
 
 4. Parameter Store
    - 암호, 데이터베이스 문자열, AMI ID, 라이선스 코드 등을 파라미터 값으로 저장
+   - 구성 및 암호를 위한 단일 저장소가 필요한 경우 사용 <-> 수명주기 관리가 필요하다면 `Secrets Manager` 사용
 
 `AmazonSSMManagedInstanceCore` 정책 연결 이후, 다음 커맨드로 EC2 인스턴스에 연결 가능
 

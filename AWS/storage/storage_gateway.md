@@ -25,7 +25,7 @@
 2. Gateway-Stored Volume
    ![Stored Volume](https://docs.aws.amazon.com/storagegateway/latest/userguide/images/aws-storage-gateway-stored-diagram.png)
    - 데이터 저장을 appliance 내 local storage(Local IDC)에 저장하고, 비동기적으로 S3에 스냅샷 형태로 백업하는 방식
-   - Gateway-Cached 방식보다 빠른 데이터 access를 원할 때 사용
+   - Gateway-Cached 방식보다 빠른 데이터 access (전체 데이터 세트에 대한 액세스)를 원할 때 사용
 3. Gateway-VTL Volume
    ![VTL Volume](https://docs.aws.amazon.com/storagegateway/latest/userguide/images/Gateway-VTL-Architecture2-diagram.png)
    - Tape 방식 백업을 지원하는 솔루션에서 VTL(Virtual Tape Library) 형태의 인터페이스를 제공하여, S3에 저장하고, 이를 장기 보관할 수 있도록 Glacier로 아카이빙할 수 있도록 하는 방식
