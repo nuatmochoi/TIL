@@ -1,6 +1,7 @@
 # AWS Config
 - IAM Role과는 달리 사용자가 특정 작업을 하는 것을 허용/제한하지 않음
 - Config Rule과 일치하는지 **평가**만 수행
+- Config Rule은 Lambda와 연동하여 트리거로 작동할 수 있음
 
 ## 리소스 대상
 - API Gateway / Lambda
