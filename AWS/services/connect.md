@@ -49,9 +49,9 @@
   - Connect 인스턴스를 생성할 때 자동으로 S3 버킷을 생성하고, Connect에 저장/관리/암호화/읽기/쓰기 권한을 부여함
   - 6개월 지난 녹취 기록은 Glacier로 이관하든지, 저장을 위해 라이프사이클 관리가 용이
 - Lambda
-  1. Contact Flow 상에서 [AWS Lambda 함수 호출] 블럭 뒤에 [연락처 속성 설정] 블럭을 연결하는 순서로 설정
-  2. [연락처 속성 설정] 블럭에서 대상 유형을 `사용자 정의`로, 대상 속성을 원하는 문자열 값으로, 그리고 속성 유형을 `외부`로 하고, 속성 값을 `Lambda return object의 key값`으로 지정
-  3. 프롬프트 재생에서 $.Attribute.[속성 값] 으로 해당 값에 접근 가능
+  - Contact Flow 상에서 [AWS Lambda 함수 호출] 블럭 뒤에 [연락처 속성 설정] 블럭을 연결하는 순서로 설정
+  - [연락처 속성 설정] 블럭에서 대상 유형을 `사용자 정의`로, 대상 속성을 원하는 문자열 값으로, 그리고 속성 유형을 `외부`로 하고, 속성 값을 `Lambda return object의 key값`으로 지정
+  - 프롬프트 재생에서 $.Attribute.[속성 값] 으로 해당 값에 접근 가능
 - VPN, Direct Connect : 온프레미스의 고객 정보 연결을 위함
 - Connect <-> Lex(Poly) -> Transcribe (realtime) -> Comprehand (감정분석) -> Analytics (Athena, Kinesis, Glue, Quicksight)
 
