@@ -35,6 +35,17 @@
 
 따라서 동일한 회선이 항상 사용되도록 BGP parameter를 조정하는 것이 필요
 
+## Direct Connect Gateway
+![DX GW](https://docs.aws.amazon.com/ko_kr/directconnect/latest/UserGuide/images/dx-gateway.png)
+
+`[온프레미스 IDC App <-> A리전 VPC App]`, `[온프렘 IDC App <-> B리전 VPC App]`
+
+두 연결 모두 일정한 성능(속도)의 연결이 이루어지기를 원하며, A리전에만 DX가 연결되어 있을 때 최소 비용 구현하기 위해서 DX GW가 사용됨 (VPC 간에 연결하는 것이 아님)
+1. Direct Connect Gateway를 프로비저닝하고, DX GW와 각 리전의 VPC용 VGW를 연결
+2. 마지막으로 Direct Connect 연결에서 Private Virtual Interface(VIF)를 생성하고 DX GW와 연결
+3. 복수 리전에 각각 퍼져있는 VPC와 DX를 연결할 수 있다. 
+
+
 ## Reference
 - [AWS Summit Seoul 2016 - AWS Direct Connect 및 VPN을 이용한 클라우드 아키텍쳐 설계 (Steve Seymour, AWS)](https://www.youtube.com/watch?v=kXLpCCbmIWQ&ab_channel=AmazonWebServicesKorea)
 - [KINX와 함께 하는 AWS Direct Connect 도입 - 남시우 매니저(KINX)](https://www.youtube.com/watch?v=8X1g2w-0fvM&ab_channel=AmazonWebServicesKorea)
