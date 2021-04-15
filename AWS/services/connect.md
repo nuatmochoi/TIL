@@ -52,6 +52,7 @@
   - Contact Flow 상에서 [AWS Lambda 함수 호출] 블럭 뒤에 [연락처 속성 설정] 블럭을 연결하는 순서로 설정
   - [연락처 속성 설정] 블럭에서 대상 유형을 `사용자 정의`로, 대상 속성을 원하는 문자열 값으로, 그리고 속성 유형을 `외부`로 하고, 속성 값을 `Lambda return object의 key값`으로 지정
   - 프롬프트 재생에서 $.Attribute.[속성 값] 으로 해당 값에 접근 가능
+  - Lambda 함수에서 반환되는 json 값은 Contact flow log 내의 `ExternalResults" 부분에 포함되서 출력된다.
 - VPN, Direct Connect : 온프레미스의 고객 정보 연결을 위함
 - Connect <-> Lex(Poly) -> Transcribe (realtime) -> Comprehand (감정분석) -> Analytics (Athena, Kinesis, Glue, Quicksight)
 
