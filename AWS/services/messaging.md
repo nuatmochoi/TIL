@@ -26,6 +26,12 @@
     - 정확한 순서 보장
 - DLQ (데드레터큐) : 메시지 전송 실패를 처리할 때 사용. 해당 대기열을 따로 생성해야 사용 가능
 
+### SQS visibility timeout
+- 소비자가 큐에서 메시지를 받아서 처리할 때, SQS는 자동으로 메시지를 삭제하지 않는다.
+- 메시지를 받은 즉시에는 여전히 큐에 남아있다. 다른 소비자가 메시지를 받는 것을 막기 위해, SQS에서는 visibility timeout 설정을 제공하고 있다. 기본 visibility timeout값은 30초 이다. 최소는 0초, 최대는 12시간까지 설정할 수 있다. 
+    - visibility timeout 시간을 변경하려면 `ChangeMessageVisibility` api를 호출하여 변경할 수 있다.
+- `DeleteMessage` api로 지정된 큐에서 지정된 메시지를 삭제할 수 있다. Visibility timeout 설정으로 인해 다른 소비자가 메시지를 잠근 경우에도 큐에서 메시지를 삭제할 수 있다.
+
 ## SNS with SQS
 ### SNS 단일 사용 시 문제점
 1. 메시지를 받는 수신자가 연결을 막았을 수 있음
