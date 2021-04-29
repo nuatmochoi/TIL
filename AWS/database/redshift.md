@@ -17,8 +17,11 @@
         - 쿼리 실행계획을 실행
         - 쿼리 처리를 위해  leader node로 데이터 전송
     - 노드 유형
-        - DS (고밀도 스토리지) : 대용량 데이터 워크로드 최적화 / HDD
-        - DC (고밀도 컴퓨팅) : 성능 집약적 워크로드 최적화 / SSD
+        - DS (고밀도 스토리지) : 대용량 데이터 워크로드 최적화 / HDD (DS2)
+        - DC (고밀도 컴퓨팅) : 성능 집약적 워크로드 최적화 / SSD (DC2)
+        - RA3 (redshift analytics) : 컴퓨팅 영역, 스토리지 영역 분리
+            - Amazon Redshift Managed Storage(RMS) : S3 + SSD
+            - 캐시를 통해 컴퓨팅 최적화
 3. 매개 변수 그룹 (parameter group) : WLM (워크로드 관리)
     - 기본 WLM 구성 : 최대 5개 쿼리를 동시 실행하는 queue 
     - 더 많은 쿼리 처리를 위해 큐를 추가 가능
