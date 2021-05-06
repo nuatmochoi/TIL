@@ -43,3 +43,88 @@
     - OS 부팅 문제
     - 운영체제 로그 확인
 - Systems Manager Automation 및 AWSSupport-ExecuteEC2Rescue를 통해 자동으로 실행 가능
+
+## Troubleshooting
+
+### 시작하지 않은 EC2가 실행되는 이유
+1. 타 서비스에 의해 시작
+    - CloudFormation : 스택에 EC2가 포함될 수 있음
+    - EB : EC2 +  AutoScaling가 포함됨
+    - OpsWorks : OpsWorks 스택의 쿡북에 EC2가 포함될 수 있음
+    - EMR : EC2 인스턴스 그룹인 클러스터&노드가 시작됨
+2. 권한을 가진 타 사용자가 인스턴스 시작
+    - CloudTrail 사용하여 `RunInstances` API를 호출한 인스턴스를 찾을 수 있음
+    - 사용자에 대한 관리는 IAM으로 제어
+
+### 종료했는데 EC2가 다시 시작되는 이유
+1. Auto Scaling 그룹 설정에 의해서 재시작
+    - 인스턴스 ID 확인하고, Auto Scaling 그룹에서 활동기록 -> 인스턴스 ID 일치하는 것 찾기
+2. EB 환경에 Auto Scaling이 포함되었을 수 있음
+
+### EC2 인스턴스를 찾을 수 없는 이유
+1. 다른 리전으로 설정
+2. 다른 사용자가 종료
+3. 다른 계정에서 실행 중
+4. Auto Scaling, EB, ELB, Lambda 등에 의해 인스턴스가 종료
+5. 인스턴스가 스팟 인스턴스로 시작 + 스팟 가격이 입찰 가격을 초과
+
+### EC2를 다른 서브넷, AZ, VPC로 이동하려면?
+- 기존 인스턴스를 옮길 수는 없다.
+- AMI를 생성하여 인스턴스를 수동으로 마이그레이션하고 EIP를 인스턴스로 재할당
+    - AMI 생성 시간을 줄이기 위해 EBS 스냅샷 생성
+    - 도메인 보안 식별자(SID) 충돌할 수 있다. Sysprep을 통해 EC2 Windows 인스턴스에서 SID 등 고유 정보 제거
+
+### IGW를 사용해 EC2를 인터넷에 연결이 되지 않는 이유
+1. 사전 조건 충족 체크
+    - 서브넷과 연결된 라우팅 테이블에 `0.0.0.0/0`(IGW 기본 경로)가 포함
+    - ENI와 연결된 보안 그룹에 `0.0.0.0/0`에 대한 아웃바운드 인터넷 트래픽을 허용
+    - 서브넷과 연결된 ACL에 인터넷에 대한 인/아웃바운드 규칙 모두 허용
+2. 퍼블릭 IP 주소가 있는지 확인
+    - EIP 할당 및 연결
+    - 서브넷에서 Ipv4 주소 지정 속성 활성화
+3. 방화벽이 액세스 차단하는지 체크
+    - ping, curl을 사용해 액세스되는지 테스트
+    - 방화벽이 HTTP or HTTPS 트래픽 허용하는지 확인
+
+### EC2 CPU 크레딧 잔고가 감소한 이유
+- 인스턴스를 중지하면 모든 크레딧이 손실
+- 다시 시작하면 0 + 시작 크레딧
+
+### Lambda를 통해 EC2를 정기적으로 중지하고 시작하려면?
+1. ec2를 start, stop하는 정책을 생성하고, IAM 역할 생성. Lambda 함수에 연결
+2. python을 예시로, boto3를 import하고 리전 설정. 특정 인스턴스 ID값을 중지/시작하도록 코드 구성
+3. Lambda를 트리거하는 CloudWacth Event Rule 생성 (cron 표현식)
+
+### EC2 상태 변경시 이메일 알림
+1. SNS 콘솔에서 [주제 생성] -> [구독 생성] : [이메일]
+2. CloudWatch 이벤트 생성
+    - [이벤트 패턴] : [EC2 Instance State-change Notification]
+    - [대상] : [SNS 주제]
+
+### AMI를 다른 계정과 비공개로 공유
+- AMI를 공유할 다른 계정의 ID를 알고 있으면 공유 가능 
+- 다른 리전의 AMI를 공유하려면 교차계정 AMI 복사를 사용해야 함
+
+### EC2 Instance store를 EBS에 복사하려면?
+1. 새 EBS를 생성한 다음, 데이터 마이그레이션 진행 (Linux에서는 `rsync`, Windows는 `robocopy`)
+2. S3를 통해 개별 파일 백업
+
+### 한 리전에서 AMI를 생성하고 다른 리전에 복사하려면?
+1. EC2 인스턴스의 AMI 생성
+2. AMI 복사를 통해 다른 리전으로 복사
+
+### AWS CLI로서비스 할당량 증가 요청 확인&요청&관리?
+- AWS CLI의 `aws service-quotas` 커맨드 사용
+- `--region` 파라미터로 원하는 리전으로 변경
+- 서비스 코드 확인
+    - `list-services`로 해당 리전의 서비스 코드 목록 확인
+    - `list-service-quota`로 특정 서비스 및 리전에 대해 사용 가능한 할당량 코드 확인
+- 서비스 할당량 증가 요청
+    - `get-service-quota`로 현재 적용된 할당량 값 확인 (with `--service-code`, `--quota-code`)
+    - `request-service-qoata-increase`로 할당량 증가 요청 (with `--service-code`, `--quota-code`)
+- 서비스 할당량 증가 요청 확인
+    - `get-requested-service-quota-change`로 보류 중 요청 상태 확인 (with `--request-id`)
+        - `CASE_CLOSED`, `APPROVED`, `DENIED` 상태일 시 요청 세부 정보 확인 가능
+- 요청 추적
+    - `list-requested-service-quota-change-history` : 모든 서비스 및 모든 할당량 코드
+    - `list-requested-service-quota-change-history-by-quota` : 특정 할당량 코드에 대해
