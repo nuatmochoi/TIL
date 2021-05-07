@@ -128,3 +128,11 @@
 - 요청 추적
     - `list-requested-service-quota-change-history` : 모든 서비스 및 모든 할당량 코드
     - `list-requested-service-quota-change-history-by-quota` : 특정 할당량 코드에 대해
+
+### 전용 호스트 <-> 공유 테넌시
+- 전용 호스트 : 고객 전용, 버스트 가능 인스턴스 제공 X
+- 공유 테넌시 : 타 계정과 물리적 하드웨어 공유
+- 공유 테넌시 to 전용 호스트 
+    1. 기존 공유 테넌시 EC2의 AMI 생성
+    2. AWS Console, AWS CLI, Powershell(AWS tool)을 통해 전용 호스트 할당
+    3. AMI를 전용 호스트에 시작 
