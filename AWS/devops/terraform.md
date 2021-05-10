@@ -30,6 +30,9 @@ provider "aws" {
 - apply : 실제 인프라 배포 (`-auto-approve` : yes 명령어 없이 완전 자동화, 권장되지 않음)
 - destroy : 인프라 리소스 회수
 - state list : 테라폼 코드로 생성된 인프라 목록 확인
+- state rm : 테라폼에서 리소스를 관리하다가 단일 리소스를 삭제하고 싶을 때 사용
+    - `.tf` 및 `terraform.tfstate`에서 모두 제거해야 `terraform plan` 시 문제가 없다.
+    - `.tf`에서 설정 제거하고, `terraform plan` 했을 때 나오는 리소스를 대상으로 적으면 적용됨 (ex: `terraform state rm file`) 
 
 ## 협업
 
