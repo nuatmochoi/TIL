@@ -12,6 +12,11 @@
         - DynamoDB는 불가. DDB 사용하려면 lambda -> kinesis firehose -> S3 -> Athena 순서로 구성해야 함.
     - User Defined function (UDF) 지원 (SQL 뿐만으로 부족한 부분 해결)
     - 1Tb -> $5.75 (비용 절감을 위해 parquet으로 변환)
+    - 쿼리 성능 향상 팁
+        - 파티셔닝
+        - 파일 압축 및 분할 (`Apache Parquet`, `ORC` 불가능하면 `Bzip2`, `Gzip`)
+        - 파일 크기 최적화 (파일이 너무 작지는 않은가)
+        - 그래도 느리면 Hadoop, Hive를 앞단에 두어야 함
 - AWS Glue : 데이터 카탈로그를 관리하거나 spark 경험에서 ETL 작업하려면 선택
     - 데이터 카탈로그 생성 (데이터의 테이블 정보) -> Athena, EMR, Redshift Spectrum 등 다양한 분석 툴에서 분석 -> QuickSight로 시각화하여 대시보드 생성 가능
     - Glue Job을 통해서 스크립트로 ETL 작업
