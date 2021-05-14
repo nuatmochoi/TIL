@@ -17,6 +17,14 @@
 
   ![Lambda Architecture](https://docs.microsoft.com/ko-kr/azure/architecture/data-guide/big-data/images/lambda.png)
 
+## 카파 아키텍처
+
+- 람다 아키텍처의 복잡성을 해결하기 위해 제안된 아키텍처
+- 모든 데이터가 스트림 처리 시스템을 통해 단일 경로로 흐름
+- 배치 레이어를 제거하고, Speed Layer에서 모든 데이터를 스트림 처리하여 서빙 레이어로 전달하는 구조
+
+![Kappa Architecture](https://lh4.googleusercontent.com/7hZHJ21ubSdIrdHQ-9XyJueF0Askayc-i0eAZp978okhEsx4v0OGheiFaXv4SQvDXOpqbGr9AU3Srd2yt43xkXYrI3o2r6VqxtHnt4naAACQJQbRclG_bZUZJFD05fgWXuljWZ8c)
+
 ## Reference
 
 - [빅데이터 아키텍처 - Microsoft Docs](https://docs.microsoft.com/ko-kr/azure/architecture/data-guide/big-data/)
