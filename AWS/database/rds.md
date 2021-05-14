@@ -18,3 +18,15 @@
 ## I/O Credit
 - 범용 SSD 스토리지에서 기본 성능 이상이 필요할 때 대용량 I/O를 버스트하는 데 사용할 수 있는 가용 대용폭 (1GB 당 3IOPS 할당됨) 
 [참고](https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/CHAP_Storage.html#Concepts.Storage.GeneralSSD)
+
+## RDS Proxy
+- RDS의 완전 관리형 고가용성 데이터베이스 프록시
+- DB 연결을 폴링하고 공유하여 확장성 개선
+- 장애조치 시간을 66%까지 줄이고 장애 조치 중 애플리케이션 연결 보존하여 가용성 향상
+- DB에 IAM을 적용하고 Secrets manger에 자격 증명을 안전하게 저장
+- Use cases
+    - 예측할 수 없는 워크로드
+    - DB 연결을 자주 열고 닫는 경우
+    - 연결을 유휴 상태로 유지
+    - 일시적 오류로 가용성 필요할 때
+    

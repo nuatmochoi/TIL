@@ -20,6 +20,18 @@
   - 대신에 Immutable이라는 장점이 있다.
   - Segment가 Immutable한 이유는 캐싱 때문이다. Lucene은 읽기 속도를 높이기 위해 OS의 파일시스템 캐싱에 의존하고 있음. 빠른 액세스를 위해 hot segment를 메모리에 상주하게 유지시키는 식으로 작동한다. [참고](https://www.elastic.co/guide/en/elasticsearch/guide/current/heap-sizing.html#_give_less_than_half_your_memory_to_lucene)
 
+## 성능 향상 팁
+- 샤드는 여러 노드에 잘 분포되도록
+- Node 추가는 가장 트래픽이 적은 시간에 진행
+  - 샤드 재분배로 인한 성능 저하
+- 너무 많은 샤드 수라면 10~50GiB로 유지
+- refresh interval을 60초 이상으로 늘리고(기본:1초), 다량의 인덱싱이 필요하면 복제본 수를 0으로 변경
+
+## 인덱스 상태관리
+- 7일이 지난 인덱스에 대해 Hot 스토리지인 UltraWam 스토리지로 변경
+- 90일이 지나면 인덱스 삭제
+
+
 ## Reference
 
 - https://www.elastic.co/kr/blog/how-many-shards-should-i-have-in-my-elasticsearch-cluster
