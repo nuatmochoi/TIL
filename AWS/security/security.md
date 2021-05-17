@@ -27,3 +27,8 @@ assessment run에서 테스트한 항목과 평가 결과를 보여주는 문서
 
 - 기계 학습 및 패턴 일치를 사용하여 AWS에서 민감한 데이터를 검색하고 보호하도록 설계
 - 주로 데이터 보안 및 데이터 프라이버시를 위해 Amazon S3 버킷을 스캔한다.
+
+## VPC 내 자원에서 악성코드 링크 요청 방어
+- IP 레벨 : Network CL, Network Firewall
+- 도메인 레벨 : Network Firewall
+- 도메인 레벨 & DNS 레벨에서 방어 : Amazon Route53 Resolver DNS Firewall
