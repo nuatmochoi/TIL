@@ -8,6 +8,7 @@
 ## AWS WAF
 
 - L7 디도스 공격(XXS, Cross-Site Scripting을 통한 DDOS 공격)을 막는다. 원리는 정규표현식 기반으로 방어
+- Brute-Force Attack에 대해서 Request rate 기반으로 임계값을 넘으면 해당 IP에 대한 블랙리스트 처리가 가능
 
 ## Amazon Inspector
 
