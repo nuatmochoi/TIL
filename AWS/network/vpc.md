@@ -9,7 +9,7 @@
 서브넷의 종류에는 크게 Public Subnet과 Private Subnet이 있다.
 
 - Public Subnet : Internet Gateway와 연결된 서브넷
-- Priavate Subdnet : Internet Gateway와 연결되지 않은 서브넷. 펌웨어 패치 등을 위해 NAT Gateway와 연결되어 있다.
+- Private Subdnet : Internet Gateway와 연결되지 않은 서브넷. 펌웨어 패치 등을 위해 NAT Gateway와 연결되어 있다.
 
 ## CIDR
 
@@ -56,6 +56,22 @@ NACL 및 보안그룹은 규칙에 URL을 포함할 수 없으며, 경로도 포
 - VPC의 인스턴스에서 인터넷으로 IPv6를 통한 아웃 바운드 통신을 허용
 - IPv4를 통한 아웃 바운드 전용 인터넷 통신은 = NAT Gateway
 - VPC에 Egress Only IGW를 생성한 다음, 라우팅 테이블에 `::/0` 경로 추가
+
+## VPC Endpoint & PrivateLink
+- VPC Endpoint를 통해 IGW, NAT, VPN, DX 연결 없이도 PrivateLink를 지원하는 서비스와 VPC Endpoint에 비공개로 연결 가능
+
+### Gateway VPC Endpoint
+-  S3 및 DynamoDB에 대한 연결 액세스 포인트
+![S3 Endpoint](https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/images/vpc-endpoint-s3-diagram.png)
+
+### Interface VPC Endpoint (AWS PrivateLink)
+- AWS 서비스 및 엔드포인트 서비스(VPC에서 호스팅되고 있는 서비스) & AWS Marktetplace 서비스에 대해 PrivateLink로 연결 지원
+<p><img src="https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/images/vpc-endpoint-kinesis-diagram.png" width=300><img src="https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/images/vpc-endpoint-kinesis-private-dns-diagram.png" width=300>
+
+### Gateway Load Balancer EndPoint (AWS PrivateLink)
+- VPC 경계 간 트래픽 안전하게 교환
+- 트래픽을 가로채고 보안 검사 등을 위해 [Gateway Load Balancer](https://docs.aws.amazon.com/ko_kr/elasticloadbalancing/latest/gateway/introduction.html)로 라우팅할 수 있음
+
 
 ## 3-Tier VPC
 
