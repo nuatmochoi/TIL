@@ -62,6 +62,7 @@ NACL 및 보안그룹은 규칙에 URL을 포함할 수 없으며, 경로도 포
 
 ### Gateway VPC Endpoint
 -  S3 및 DynamoDB에 대한 연결 액세스 포인트
+
 ![S3 Endpoint](https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/images/vpc-endpoint-s3-diagram.png)
 
 ### Interface VPC Endpoint (AWS PrivateLink)
