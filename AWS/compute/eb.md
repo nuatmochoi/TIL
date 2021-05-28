@@ -26,3 +26,21 @@
 ## EB 배포 방법
 ![EB 배포 방법](https://jayendrapatil.com/wp-content/uploads/2018/04/Elastic-Beanstalk-Deployment-Methods.png)
 
+1. All at once
+- 모든 인스턴스에서 동시에 배포
+
+2. 롤링 배포
+- 롤링 배포 중 인스턴스의 일부는 이전 버전의 애플리케이션으로 요청을 처리하고, 완료된 배치의 인스턴스는 새 버전으로 요청 처리
+
+3. Rolling with additional batch
+- 배포 프로세스 중 전체 용량을 보장
+- 인스턴스가 서비스에서 제외되기 전에 새 인스턴스 배치를 시작
+
+4. Immutable
+- All at once와 롤링 배포가 기존 인스턴스를 업데이트하는 것에 반해
+- Immutable Update는 항상 새 인스턴스에 배포됨
+- 환경에서 두번째 ASG을 시작하여, 새 버전은 새 인스턴스가 상태확인을 통과할 때까지 이전 버전과 함께 트래픽 처리
+
+5. Blue/Green
+- swap environment url을 통해 지원
+- 새 버전이 새 환경에 배포된 다음 두 환경의 CNAME을 교체
