@@ -72,6 +72,7 @@ NACL 및 보안그룹은 규칙에 URL을 포함할 수 없으며, 경로도 포
 ### Interface VPC Endpoint (AWS PrivateLink)
 
 - AWS 서비스 및 엔드포인트 서비스(VPC에서 호스팅되고 있는 서비스) & AWS Marktetplace 서비스에 대해 PrivateLink로 연결 지원
+- DX를 타고 S3로 다이렉트로 연결하기 위한 목적으로도 사용됨
 <p><img src="https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/images/vpc-endpoint-kinesis-diagram.png" width=300><img src="https://docs.aws.amazon.com/ko_kr/vpc/latest/privatelink/images/vpc-endpoint-kinesis-private-dns-diagram.png" width=300>
 
 ### Gateway Load Balancer EndPoint (AWS PrivateLink)
