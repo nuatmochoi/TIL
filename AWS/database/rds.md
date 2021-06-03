@@ -29,4 +29,8 @@
     - DB 연결을 자주 열고 닫는 경우
     - 연결을 유휴 상태로 유지
     - 일시적 오류로 가용성 필요할 때
-    
+
+## RDS Event Notification
+- DB 인스턴스, DB 보안그룹, DB 파라미터 그룹, DB 스냅샷 등의 이벤트가 발생했을 때 Amazon SNS를 사용하여 알림 메시지를 받을 수 있음
+- [`describe-events`](https://docs.aws.amazon.com/cli/latest/reference/rds/describe-events.html)을 통해 RDS 리소스의 이벤트를 검색 가능 (최대 14일)
+    - 더 오랜 기간 보관해야한다면 [CloudWatch 이벤트에 Amazon RDS 이벤트를 전송](https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/rds-cloud-watch-events.html#rds-cloudwatch-events.sending-to-cloudwatch-events)해야함
