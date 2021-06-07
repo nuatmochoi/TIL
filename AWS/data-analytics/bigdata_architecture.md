@@ -25,6 +25,17 @@
 
 ![Kappa Architecture](https://lh4.googleusercontent.com/7hZHJ21ubSdIrdHQ-9XyJueF0Askayc-i0eAZp978okhEsx4v0OGheiFaXv4SQvDXOpqbGr9AU3Srd2yt43xkXYrI3o2r6VqxtHnt4naAACQJQbRclG_bZUZJFD05fgWXuljWZ8c)
 
+## IoT (이벤트 기반 아키텍처)
+
+- 데이터가 경우에 따라 대기 시간이 긴 환경에서 수집되며, 수천만 혹은 수백만 개의 디바이스에서 낮은 대기 시간 환경으로 전송되어 데이터를 빠르게 수집하고 처리하는 기능이 요구됨
+
+![IoT Architecture](https://docs.microsoft.com/ko-kr/azure/architecture/guide/architecture-styles/images/iot.png)
+
+- 클라우드 게이트웨이 : 안정적이고 대기 시간이 짧은 메시징 시스템을 사용하여 디바이스 이벤트를 수집
+- 디바이스는 클라우드 게이트웨이에 직접 이벤트를 보내거나, 필드 게이트웨이를 통해 보낼 수 있음 (필드 게이트웨이는 디바이스와 함께 배치됨)
+  - 필드 게이트웨이에서 필터링, 집계, 프로토콜 변환 등 기능을 수행하여 전처리를 수행함
+- 수집된 이벤트는 데이터를 스토리지 등으로 라우팅하거나 분석 등 처리를 할 수 있는 스트림 프로세서를 통과함.
+
 ## Reference
 
 - [빅데이터 아키텍처 - Microsoft Docs](https://docs.microsoft.com/ko-kr/azure/architecture/data-guide/big-data/)
