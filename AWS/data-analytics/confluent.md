@@ -19,3 +19,4 @@
 - 대표적인 것이 넷플릭스 아키텍처: 각 서비스간 연결이 중요하지만, 많아질수록 복잡해짐
   ![Neflix](https://gblobscdn.gitbook.com/assets%2F-LcsheX9TIMwoBSNygvE%2F-LjpfQhvrhmEPWA-DTYW%2F-LjphIHMTTcPNLMu9jwf%2F%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202019-07-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.56.51.png?alt=media&token=94a25c1c-8bc1-407a-97c6-8bfdd5edb4e4)
 - 이벤트 기반 마이크로서비스에서 중요한 것이 event bus인데, confluent가 해당 역할을 함
+  ![event bus msa](https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/multi-container-microservice-net-applications/media/integration-event-based-microservice-communications/event-driven-communication.png)
