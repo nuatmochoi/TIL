@@ -4,6 +4,17 @@
 
   - 분산 트랜잭션 로그로 구성된 확장 가능한 Pub/Sub 메시지 큐에 저장 기능이 포함된 것.
 
+- pub/sub 데이터 모델
+  ![kafka](https://engineering.linecorp.com/wp-content/uploads/2019/10/1kafka2.jpg)
+
+  - producer : kafka에 데이터를 입력하는 클라이언트
+  - broker cluster : topic이라고 불리는 데이터 관리 유닛을 임의 개수만큼 호스팅하는 클러스터
+    - producer는 그 중 하나의 topic만을 대상으로 데이터 입력
+  - consumer : kafka에서 데이터를 가져오는 클라이언트
+    - 데이터를 가져올 topic을 지정한 후 해당 topic에서 데이터를 가져옴
+    - 하나의 topic에 여러 개의 consumer가 각각 다른 목적으로 존재
+    - topic에 입력된 데이터는 여러 consumer가 서로 다른 처리를 위해 여러 번 가져올 수 있음
+
 - 카프카만 가지고는 데이터 유통만 가능.
 - 각종 애플리케이션을 붙이기 위한 커넥터, proxy, 실시간 테이블 처리을 위한 ksqlDB 등을 지원하는 Confluent
 - Confluent는 Apache Kafka에 대한 commit의 80% 이상을 담당
