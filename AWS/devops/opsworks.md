@@ -1,7 +1,7 @@
 # OpsWorks
 
 ## OpsWorks Stacks
-!OpsWorks Stacks](https://jayendrapatil.com/wp-content/uploads/2016/12/OpsWorks-Stacks.png)
+![OpsWorks Stacks](https://jayendrapatil.com/wp-content/uploads/2016/12/OpsWorks-Stacks.png)
 - OpsWorks Stacks은 ELB, Database, 애플리케이션 서버 등 여러 계층이 포함된 스택으로 모델링
 - OpsWorks for Chef Automate와 달리 Chef 서버가 필요없음
 - Stacks은 EC2, RDS 인스턴스 등 AWS 리소스를 위한 컨테이너
