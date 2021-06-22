@@ -31,6 +31,9 @@
 - 7일이 지난 인덱스에 대해 Hot 스토리지인 UltraWam 스토리지로 변경
 - 90일이 지나면 인덱스 삭제
 
+## Composite Aggregation
+- ElasticSearch는 한 번에 검색할 수 있는 건수(max_result_window)에 상한이 있음. 기본적으로 10000개 이상의 결과를 얻을 수 없음. 이를 해결해주는 것이 Composite Aggregation
+- Composite Aggregation는 여러 집계 결과(Bucket)을 취급하는 기능이며, 집계 결과를 스크롤함으로써 위 요구사항을 해결함
 
 ## Reference
 
