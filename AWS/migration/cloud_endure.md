@@ -90,8 +90,12 @@
 
 - SMS는 변경사항에 대해서 스냅샷을 생성하고 AMI 및 CloudFormation을 생성하는 phase가 주기적으로(1h~24h) 실행되기 때문에, destination의 환경은 Source 환경보다 최소 1시간은 늦다. 이에 반해 CloudEndure는 변경사항이 생겼을 때 곧바로 agent가 인식하고 반영하는 구조라서 Cutover하기까지의 시간이 CloudEndure가 훨씬 짧은 것이고, 이를 실시간 복제라고 표현한다.
 
+## 통신 요구사항
+![cloudendure network port](https://docs.cloudendure.com/Content/Resources/Images/80.png)
+
 ## Reference
 
 - [CloudEndure Migration](https://aws.amazon.com/ko/cloudendure-migration/)
 - [CloudEndure Disaster Recovery](https://aws.amazon.com/ko/cloudendure-disaster-recovery/)
 - [CloudEndure vs AWS SMS](https://aws.amazon.com/ko/blogs/architecture/field-notes-choosing-a-rehost-migration-tool-cloudendure-or-aws-sms/)
+- [Planning Migration CloudEndure](https://dev.classmethod.jp/articles/planning-migration-cloudendure/)
