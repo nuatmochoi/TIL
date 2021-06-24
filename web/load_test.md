@@ -26,3 +26,5 @@
         - throughput : 초당 접속 (높을 수록 좋음) 
             - error 가 발생하면 높아지기 때문에 같이 살피는 것이 중요
 - JDBC Connection Configuration을 통해 DB load test 가능
+- Concurrency Thread Group : 스레드 스케줄을 구성하고, 동시성 수준을 유지할 수 있다. 
+    ![Concurrency thread group](https://www.perfmatrix.com/wp-content/uploads/2020/07/JMeter-Concurrency-Thread-group-04.png)
