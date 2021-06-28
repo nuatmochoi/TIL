@@ -20,6 +20,12 @@
 - 범용 SSD 스토리지에서 기본 성능 이상이 필요할 때 대용량 I/O를 버스트하는 데 사용할 수 있는 가용 대용폭 (1GB 당 3IOPS 할당됨) 
 [참고](https://docs.aws.amazon.com/ko_kr/AmazonRDS/latest/UserGuide/CHAP_Storage.html#Concepts.Storage.GeneralSSD)
 
+## max connection
+- RDS는 DynamoDB와는 달리 한번 통신하고 끝나는 DB가 아니라 연결형 데이터베이스이므로, Lambda 등과 직접 커넥션을 맺게하면 connection leak의 여지가 생길 수 있다.
+    - 특히 Lambda에서 timeout이 발생했을 때 RDS의 max connection 값을 초과하여 too many connections error가 발생함.
+- RDS type 별로 max connection 값이 다르게 정해져 있음
+- 해당 문제를 해결하기 위해, Connection pool을 제공하는 RDS Proxy가 출시됨
+
 ## RDS Proxy
 - RDS의 완전 관리형 고가용성 데이터베이스 프록시
 - DB 연결을 폴링하고 공유하여 확장성 개선
