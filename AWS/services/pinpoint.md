@@ -1,5 +1,6 @@
 # Amazon Pinpoint
 - 이메일, 앱 푸시알림, SMS 문자 및 음성 메시지를 보낼 수 있는 서비스
+    - [이외의 채널로는 AWS Lambda를 사용](https://docs.aws.amazon.com/ko_kr/pinpoint/latest/developerguide/channels-custom.html)하도록 권고하고 있음
 - 마케팅 라이프사이클 관리 
     - 홍보 및 거래 메시지(구매 영수증) 전달
 - 고객 참여 및 활동(구매 등) 활동, 선호도 등 사용자 행동을 확인할 수 있는 분석 제공
@@ -59,3 +60,5 @@
 
 ## Reference
 - [Pinpoint Workshop](https://pinpoint-jumpstart.workshop.aws/en/)
+
+특장점 및 타 서비스간 비교 필요
