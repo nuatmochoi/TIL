@@ -108,7 +108,8 @@ def lambda_handler(event, context):
 - 초단위 정밀 작업이 필요하다면 EC2, ECS를 사용하는 것을 추천
 
 ## Lambda @Edge
-- 초단 최대 10,000개의 Request만 처리 가능
+
+- 초당 최대 10,000개의 Request만 처리 가능
 
 ## Reference
 
