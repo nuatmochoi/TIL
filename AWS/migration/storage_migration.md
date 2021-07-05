@@ -40,7 +40,7 @@
 
 ## AWS DataSync
 
-- 하이브리드 환경으로 마이그레이션할 때, 환경 간 작업에 도움을 주는 도구
+- 하이브리드 환경으로 마이그레이션할 때, 환경 간 작업에 도움을 주는 도구 - onprem이 VM 기반(VMWare, Hyper-V, KVM)이어야 함
 - AWS Direct Connect를 통해 온프레미스 스토리지 시스템과 AWS 스토리지 서비스 간 데이터 이동 및 복제를 단순,자동,가속화하는 데이터 전송 서비스
 - NFS에서 DFS, S3로의 전송을 지원.
   - Storage Gateway와의 차이점은 DataSync는 주로 NFS 소스에서 전송하는 데 사용되며 대상은 EFS
