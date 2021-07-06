@@ -31,6 +31,7 @@ SAM template은 CloudFormation 위에서 작동됨
    ```
 
 ## sam local (로컬 환경에서 테스트)
+- docker를 사전에 설치해야 함
 
 1. `sam local generate-event`
 2. `sam local invoke`
