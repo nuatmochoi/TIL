@@ -59,6 +59,7 @@
   - 개인화된 콘텐츠 명시 가능 (ex> `Hi {{User.UserAttributes.FirstName}}, congratulations on your new {{User.UserAttributes.Activity}} record of {{User.UserAttributes.PersonalRecord}}!`)
   - [개인화된 콘텐츠 추가](https://docs.aws.amazon.com/pinpoint/latest/userguide/message-templates-personalizing.html)
   - 버저닝 가능
+  - [메시지 템플릿 helpers](https://docs.aws.amazon.com/ko_kr/pinpoint/latest/userguide/message-template-helpers.html) 기능을 통해서 if else 구문 등을 구현할 수 있음
 
 ## 여정(Journey)
 
