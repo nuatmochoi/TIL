@@ -77,5 +77,3 @@
 ## Reference
 
 - [Pinpoint Workshop](https://pinpoint-jumpstart.workshop.aws/en/)
-
-특장점 및 타 서비스간 비교 필요
