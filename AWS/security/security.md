@@ -9,6 +9,7 @@
 
 - L7 디도스 공격(XXS, Cross-Site Scripting을 통한 DDOS 공격)을 막는다. 원리는 정규표현식 기반으로 방어
 - Brute-Force Attack에 대해서 Request rate 기반으로 임계값을 넘으면 해당 IP에 대한 블랙리스트 처리가 가능
+- OWASP 10대 보안 취약점에 대해 대응 가능
 
 ## Amazon Inspector
 
@@ -30,6 +31,7 @@ assessment run에서 테스트한 항목과 평가 결과를 보여주는 문서
 - 주로 데이터 보안 및 데이터 프라이버시를 위해 Amazon S3 버킷을 스캔한다.
 
 ## VPC 내 자원에서 악성코드 링크 요청 방어
+
 - IP 레벨 : Network CL, Network Firewall
 - 도메인 레벨 : Network Firewall
 - 도메인 레벨 & DNS 레벨에서 방어 : Amazon Route53 Resolver DNS Firewall
