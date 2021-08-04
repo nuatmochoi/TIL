@@ -1,3 +1,10 @@
+# VPN
+
+- IPSec 네트워크 프로토콜 기반 VPN 연결
+- VPN Tunnels은 기본적으로 이중화(되어 있고, TLS 통신이기 때문에 안전하게 통신 가능
+- 인터넷 기반이기 때문에 성능, 품질이 전용선보다는 떨어지고, 지연이 생길 수 있다. (Bandwidth와 Latency가 가변적)
+- AWS 상에 VPN을 연결하기 위한 Virtual Private Gateway(VGW)가 만들어지고, 해당 VGW와 온프레미스의 CGW(Customer Gateway)가 통신
+
 ## AWS Site-to-Site VPN
 
 - AWS 서비스와 IDC를 잇는 VPN
