@@ -39,6 +39,6 @@
 ## AWS Client VPN
 
 - AWS와 사용자(클라이언트)를 연결하는 VPN
-- 로컬 및 모바일 디바이스에서 OpenVPN기반 VPN Client 애플리케이션을 사용하여 VPN 세션을 설정함. VPN 세션 설정 이후 VPC 내 리소스에 접근 가능
+- 로컬 및 모바일 디바이스에서 오픈소스인 OpenVPN기반 VPN Client 애플리케이션을 사용하여 VPN 세션을 설정함. VPN 세션 설정 이후 VPC 내 리소스에 접근 가능
 
   ![Client VPN](https://docs.aws.amazon.com/ko_kr/vpn/latest/clientvpn-admin/images/architecture.png)
