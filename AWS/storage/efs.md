@@ -2,6 +2,8 @@
 
 - 관리형 파일 스토리지
 - 온프레미스의 NFS, NAS와 동일한 서비스
+- 수천대의 EC2 인스턴스간 파일 시스템 공유 가능. 병렬 접근이 가능하도록 설계되어 IOPS가 파일시스템이 커짐에 따라 탄력적으로 설정됨
+  - 따라서 두 개 이상의 EC2로부터 하나의 공유된 스토리지 공간이 필요할 때 EFS 채택
 
 ![EFS Architecture](https://docs.aws.amazon.com/ko_kr/efs/latest/ug/images/efs-ec2-how-it-works-Regional.png)
 
