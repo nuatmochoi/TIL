@@ -23,3 +23,10 @@
 2. Nginx access log
    - `/var/log/nginx/access/log`
    - 로그 포맷 정의
+
+## Reverse Proxy
+
+- 클라이언트로부터 요청을 받아 적절한 웹서버로 요청을 전송
+- 웹 서버는 요청을 받아서 응답을 클라이언트로 보내지 않고, Reverse Proxy로 전송
+- 요청을 받은 Reverse Proxy는 응답을 클라이언트에 전송
+- 따라서 클라이언트의 요청이 웹서버에 전달되는 도중에 끼어들어 다양한 전후처리가 가능
