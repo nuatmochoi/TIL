@@ -26,6 +26,7 @@
     - topic에 입력된 데이터는 여러 consumer가 서로 다른 처리를 위해 여러 번 가져올 수 있음
   - `message` : kafka에서 다루는 데이터의 최소 단위. key-value를 가지며 메시지 전송시 파티셔닝에 이용됨
   - `topic` : 메시지를 종류별로 관리하는 스토리지. broker에 배치되어 관리된다. 단일 카프카 클러스터에서 여러 종류의 메시지를 중계함
+    - datagen을 통해 dummy data를 auto-generate하여 topic에 produce할 수 있음
 
 ### kafka 요청 처리 방식
 

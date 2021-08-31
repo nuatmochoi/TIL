@@ -1,115 +1,125 @@
 # Storage Migration
 
-## AWS EBS
+## 온프레미스 환경에서 스토리지 종류
 
-- EC2 인스턴스에 사용하기 위한 블록 레벨 스토리지 볼륨 제공
-- 동일한 인스턴스에 여러 볼륨을 마운트할 수 있으나, 각 볼륨은 한 번에 하나의 인스턴스에만 연결
-- 볼륨 타입으로 SSD, HDD
-  - SSD : 일반적 용도, 낮은 대기 시간과 높은 처리량을 위한 성능이 필요하다면 선택
-  - HDD : 처리량 최적화 볼륨(높은 처리량이 필요한 빅데이터나 로그 처리 등), Cold(접속은 적게하지만, 처리량에 최적화된 업무)
+### IDC Storage 
+- 블록 스토리지 
+  - 하나의 서버가 하나의 volume을 mount해서 사용
+  - LUN(Logical Unit Number)이 연결되어 애플리케이션이 해당 볼륨을 마운트해서 읽고 쓸 수 있음
+- 파일 스토리지
+  - NAS(Network Attched Storage)
+  - 여러 서버가 하나의 보륨을 동시에 공유해 사용
+- 오브젝트 스토리지
+  - HTTP 프로토콜로 데이터에 접근
 
-## AWS EFS
+### Cloud Storage
+- 블록 스토리지 -> Amazon EBS
+- 파일 스토리지 -> Amazon EFS, Amazon FSx
+- 오브젝트 스토리지 -> Amazon S3
 
-- 파일 시스템을 만들고, EC2 인스턴스에 파일 시스템을 마운트한 다음, EFS에서 데이터를 읽고 쓸 수 있음
-- EFS를 여러 EC2에 동시에 마운트할 수 있음. 즉, 여러 서버에 대한 공유 파일 시스템을 구성 가능
-- AWS에 내장된 EFS를 온프레미스 서버로 마운트 가능
+### 데이터 마이그레이션이 어려운 이유
+- 용량에 따라 걸리는 시간이 수주가 걸릴 수도
+- 동기화를 위해 서비스 다운 타임이 필요할 수도
+- 어떤 마이그레이션 서비스가 빠른지 고민이 됨
 
-## AWS Snowball
+## 데이터 전송을 위한 5가지 고려사항
+1. 어떤 데이터를 어느 스토리지로 이관?
+2. 한번만 전송? 지속적 동기화?
+3. 단방향? 양방향?
+  - IDC to Cloud 한 번이면 되는지, 다시 Cloud to IDC를 해야 하는지
+4. 데이터량 및 가능한 전송시간?
+5. 네트워크 대역폭 제한은?
+  - 네트워크 한계 == 최저 속도 == 네트워크 구간의 병목이 나는 구간의 속도를 알아야 함
 
-- 데이터 센터에서 네트워크에 직접 연결하고 로컬 네트워크를 활용하여 데이터를 복사할 수 있는 물리적 디바이스
-- 최대 80TB, AWS KMS에 의해 데이터를 암호화
-- 온프레미스 데이터 스토리지와 S3간 데이터를 가져오고 내보낼 수 있음
-- 마이그레이션하기까지 10일 이내의 요구사항이라면 비적합
+![Network bandwidth with data](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/05/network-bandwidth-and-capcity-640x349.png)
+- AWS Direct Connect는 1Gbps와 10Gbps를 제공
+- 10PB의 경우 124일이 걸리기 때문에 네트워크로는 거의 불가능
+- 따라서 10PB와 같은 대용량 데이터는 AWS Snowball 오프라인 전송 서비스 권고
+  - 처음에만 Snowball로 이관하고, 증분 데이터는 네트워크로 넘기는 혼합 이관 방식도 사용됨
 
-## AWS Snowmobile
+## AWS Migration 서비스
+![AWS Migration Service](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/05/aws-migration-service.png)
 
-- 이동할 데이터가 많을 때 사용
-- 최대 100페타바이트의 데이터를 보관
+## 데이터 마이그레이션 서비스
+![Data Migration Service](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/05/aws-migration-service-icons-640x167.png)
 
-## AWS Storage Gateway
+### AWS Transfer for SFTP
+![AWS Transfer for SFTP](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/05/AWS-transfer-for-SFTP-workflow-960x473.png)
+- Amazon S3로 SFTP를 통해 직접 파일을 송수신할 수 있도록 지원 (타켓이 S3에 저장된다는 특징)
+- 완전관리형
 
-- 온프레미스 환경에서 AWS 내의 게이트웨이 엔드포인트에 연결되는 VM 이미지르 활용
-- 로컬 스토리지 리소스를 AWS 클라우드에 연결하고 스토리지 메커니즘에 가용성, 내결함성 및 확장성 추가
-- 파일 기반, 볼륨 기반, 테이프 기반 옵션 제공
-  - File Gateway : S3에 대한 파일 인터페이스 지원. NFS, SMB와 같은 프로토콜을 통해 S3에서 객체를 저장 및 검색 가능
-  - Volume Gateway : 온프레미스 애플리케이션 서버에서 iSCSI 장치로 마운트할 수 있는 클라우드 백 스토리지 볼륨 제공
-    - 캐시 볼륨 : S3에 데이터를 저장하고 자주 액세스하는 데이터 집합의 복사본을 로컬로 유지 가능
-    - 저장 볼륨 : 전체 데이터 세트에 대한 짧은 지연 시간의 액세스가 필요한 경우에 사용
-      - 모든 데이터는 로컬에 저장되며, 온프레미스 스토리지에서 스냅샷 생성, 로컬 볼륨 복구나 AWS 계정 내 볼륨 생성에 사용
-  - Tape Gateway : 백업 데이터를 AWS에 안정적으로 보관할 수 있음
+### AWS DataSync
+![AWS DataSync](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/05/AWS-dataSync-workflow.png)
+- S3와 EFS에 데이터를 전송할 수 있는 데이터 동기화 서비스
+- 네트워크를 통해 서 데이터 정송
+- 데이터 동기화 기능
+  - 클라우드 데이터를 통해 온프레미스의 데이터가 파손되었을 시에 복구 가능
 
-## AWS DataSync
+### AWS Storage Gateway
+- 온프레미스 백업, 스토리지 파일 공유, 애플리케이션이 클라우드에 낮은 지연시간으로 접근
 
-- 하이브리드 환경으로 마이그레이션할 때, 환경 간 작업에 도움을 주는 도구 - onprem이 VM 기반(VMWare, Hyper-V, KVM)이어야 함
-- AWS Direct Connect를 통해 온프레미스 스토리지 시스템과 AWS 스토리지 서비스 간 데이터 이동 및 복제를 단순,자동,가속화하는 데이터 전송 서비스
-- NFS에서 DFS, S3로의 전송을 지원.
-  - Storage Gateway와의 차이점은 DataSync는 주로 NFS 소스에서 전송하는 데 사용되며 대상은 EFS
-- 온프레미스 스토리지 스스템에서 데이터를 읽거나 쓰는데 사용되는 가상 머신인 **에이전트** 사용
+### AWS Snowball Edge
+- 오프라인 전송으로 별도의 하드웨어 장비를 가지고 IDC에서 데이터를 저장한 후, 차를 통해 운반하고 AWS Center에서 데이터를 바로 S3로 옮겨주는 서비스
 
-## AWS DMS (Database Migration Service)
+#### AWS Snowball 종류
+- Snowball : 데이터에 대한 저장 장치만 제공
+- Snowball Edge : 저장 장치 + EC2 Instance 내장
+- Snowball Mobile : 수백테라 이상의 데이터를 컨테이너를 통해 이동
 
-- RDBMS, Data warehouse, NoSQL 등 데이터 저장소를 쉽게 마이그레이션하는 도구
-- 데이터를 AWS클라우드와 온프레미스 간 마이그레이션
-- 원본 데이터 저장소에 연결하여 원본 데이터를 읽은 다음, 대상 데이터 저장소에서 사용할 데이터를 형식화하고 데이터를 로드
-- 마이그레이션을 모니터링할 수 있는 기능을 제공
-- Oracle to Orcle, Oracle to MySql, MySql to Aurora 등 다른 DB 플랫폼간 마이그레이션을 지원
-- 온프레미스 DB를 EC2 인스턴스에서 실행되는 DB로 마이그레이션도 가능
-- 가동 중지 시간 없이 데이터베이스를 마이그레이션할 수 있음 : 지속적 복제 옵션으로 수행했을 때
-- 스냅샷을 생성하여 마이그레이션 했을 때는 down time이 필연적
-- AWS DMS를 사용하려면 하나의 엔드포인트가 반드시 AWS 서비스에 있어야 함 (온프레미스 to 온프레미스는 지원 X)
+한국에서는 Snowball Edge가 주로 사용됨
 
-## AWS SSC (Storage Schema Conversion)
+#### AWS Snowball Edge Compute or Stroage Optimized
+- 42TB 또는 100TB 스토리지 용량
+- 종단 데이터 암호화 (유출되거나 훔쳐가더라도 데이터를 볼 수 없음)
+- 8.5G 중력 보호
+- 비와 먼지 방지
+- AWS Greengrass 지원을 통해 IoT 연결도 지원
+- Edge Compute를 위한 Computing을 Snowball 자체에서 지원
+- GPU 또한 Optional하게 지원
 
-- 기존 데이터베이스를 가져와서 해당 스키마를 다른 엔진으로 변환 (이기종 엔진간 변환)
+## 스토리지 전송 서비스 비교
+| | DataSync | Transfer for STFP | Snowball Edge | Storage Gateway |
+|-|-|-|-|-|
+|전송 스토리지 | S3, EFS, FSx | S3 | S3 | S3,EBS, Backup |
+|방향성 | 양방향 | 양방향 | 단방향 | 양방향 |
+|데이터 용량 | S3 무제한, EFS 페타단위 | S3 무제한 | 하드웨어 전송 | S3 무제한, EBS 16TB |
+|전송속도 | 네트워크 의존 | 네트워크 의존 | 하드웨어 전송 | 네트워크 의존 |
 
-## Amazon Aurora (Serverless)
+- S3의 경우 어떤 서비스든 가능
+- EFS, FSx의 경우 DataSync가 편리
+- EBS로 보낼 경우 Storage Gateway가 편리
+- 대용량 데이터의 경우 Snowball Edge (수십 테라~수십 페타)
 
-- 데이터베이스가 애플리케이션 요구에 따라 자동으로 시작, 종료 및 용량 확장, 축소가 되는 Auto Scaling Solution
-- DB 인스턴스 클래스 크기를 지정하지 않고, 데이터베이스 엔드포인트를 생성 (대신, 최대 및 최소 용량을 설정함)
-- 연결을 자동으로 관리. 요청을 처리한 준비가 된(warm) 리소스 pool을 사용
+## 대량 데이터 전송 사례 (롯데 통합 온라인몰 LotteON)
+- 제품 이미지 약 1억 4천만 개, 17TB, 대부분 200K 이하의 작은 파일
+- Direct Connect를 사용하고 있었음에도, 데이터 전송에 Direct Connect를 사용하면 너무 많은 대역폭을 점유하기 때문에 문제가 있어 사용하지 못하고, Snowball Edge 채택
 
-## AWS Direct Connect
+### AWS Snowball Edge 절차 및 소요 시간
+![AWS Snowball Edge Process](https://cdn-ssl-devio-img.classmethod.jp/wp-content/uploads/2020/05/AWS-Snowball-Edge-process.png)
+1. AWS Console로 신청 (1~3일 소요)
+2. IDC로 Snowball Edge가 오게 되고 연결 (1~2일 소요)
+3. 데이터 복제 (소요 시간은 파일 전송 속도-데이터량,파일 갯수에 따름) (가장 오래 걸림)
+4. AWS Console로 반납 신청 후 수거 (1~2일 소요)
+5. S3 버킷으로 전송 (1~N일 소요)
 
-- 개방형 인터넷을 사용하는 경우, VPN 연결로 네트워크 연결
-- 개방형 인터넷을 쓰지 않는 경우, AWS Direct Connect 사용
-  - 네트워크 경로에 퍼블릭 인터넷이 없어도 AWS 클라우드에 대한 가상 인터페이스를 직접 생성 가능
-  - Direct Connect 링크를 통해 VPN 터널을 설정하여, 온프레미스 리소스에서 AWS의 리소스로 안전하게 통신 터널을 만듦
-  - 부드러운 데이터 전송, 마이그레이션 컷오버(새 버전 오픈) 및 지속적 복제 가능
+- 5번 과정이 3번 과정만큼 오래 걸리는 작업
 
-## 배포 전략
+### 1차 결과
+전송 속도가 6.4MB/s로 2천만 개에 5일이 걸렸음, 전체 소요 시간이 70일 예상
+- 하나하나의 파일마다 S3, Snowball로 가는 Connection을 가지게 되고, 맺고 끊고 하는 시간이 문제가 되었음
+- 따라서 개선 사항은 다음과 같았음
+  - 커넥션 타임 줄이기
+  - Tar 뭉치기
+  - 메모리에 뭉치도록
 
-1. 레드-블랙
+## 2차 시도
+- Tar 파일 정상적으로 압축
+- 메타데이터가 기록되지 않는 문제 
+- IDC에서 압축하고 메타데이터 태그를 붙이고 Snowball Edge로 전송
 
-- 원래 환경과 새로운 환경 모두 실행 중
-- 마이그레이션된 프로그램에 문제가 발생하면 원래 환경으로 돌림
-- 트래픽 이동 후에 문제가 발생하면, 애플리케이션이 다운되어 사용자에게 부정적인 영향
+### 2차 결과
+전송 시간이 169.1 MB/s로 7배의 시간을 줄여 2주 내에 데이터 전송 완료
 
-2. 블루-그린
 
-- 설치, 테스트 및 실행 중인 두 환경 모두 설정이 동일
-- 즉석으로 컷오버하는 것이 아니라 적은 양의 트래픽(5~10%)만 이동
-- 블루-그린은 문제가 널리 퍼지지 않아 사용자에게 영향이 적다.
-- 대신에 각 엔드포인트로 이동하는 트래픽 양을 제어할 수 있는 DNS 서비스(Route 53)을 사용해야 한다.
-
-## AWS CloudFormation
-
-- CloudFormation 엔진을 통해 인프라를 생성, 구성 및 업데이트할 수 있는 템플릿 기능
-- 테스트 환경을 신속하게 가동할 수 있기 때문에 마이그레이션에 유용
-
-## AWS Systems Manager
-
-- 실행 중인 서버에 대한 경로를 제공하여 명령과 업데이트를 예약할 수 있다.
-- 서버에 직접 연결하지 않고도 명령을 실행할 수 있기 떄문에 시간과 노력이 절약
-- AWS 뿐만 아니라 온프레미스 서버로 시스템을 관리 가능(SSM 에이전트 == AWS 시스템 관리자 에이전트 사용)
-
-## TSO Logic
-
-- AWS 내에 존재하는 솔루션으로, 기존 리소스를 검색하여 컴퓨팅, 스토리지, DB 등 영역에서 실행중인 대상을 식별하는 데에 도움을 줌
-- 애플리케이션에 대한 총 소유 비용(TCO)를 평가할 수 있고, 예측 분석을 통해 클라우드의 워크로드(마이그레이션)에 적합한 것을 결정 가능
-
-## CloudEndure
-
-- 물리적, 가상 및 클라우드 기반 인프라에서 AWS로의 **대규모 마이그레이션**을 단순화, 촉진 및 자동화한다.
-- 스냅샷을 만들거나 디스크에 데이터를 기록하지 않으므로 성능에 거의 영향을 주지 않음
-- 수천대의 시스템에서 동시에 데이터를 복제할 수 있으며, 각 머신을 병렬으로 작동시킴
-- 전체 마이그레이션 라이프사이클을 관리하며, 컷오버 준비 상태를 확인할 수 있음
+## Reference
+- [AWS 스토리지 마이그레이션 서비스 및 대규모 데이터 전송 사례](https://dev.classmethod.jp/articles/summit-online-korea-storage-migration/)
