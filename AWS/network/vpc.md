@@ -59,6 +59,12 @@ NACL 및 보안그룹은 규칙에 URL을 포함할 수 없으며, 경로도 포
 - IPv4를 통한 아웃 바운드 전용 인터넷 통신은 = NAT Gateway
 - VPC에 Egress Only IGW를 생성한 다음, 라우팅 테이블에 `::/0` 경로 추가
 
+## Carrier Gateway
+
+- SKT 등 통신사업자 네트워크로의 인/아웃바운드 허용 제어
+- wavelength Zone에 서브넷을 포함하는 VPC에만 사용
+- 5G 구축에 사용되며 초저지연 애플리케이션 구축 가능
+
 ## VPC Endpoint & PrivateLink
 
 - VPC Endpoint를 통해 IGW, NAT, VPN, DX 연결 없이도 PrivateLink를 지원하는 서비스와 VPC Endpoint에 비공개로 연결 가능
