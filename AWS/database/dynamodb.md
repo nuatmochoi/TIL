@@ -14,6 +14,7 @@
             - 단순 기본키 : Partition Key (Hash Key) (=, != 연산만 가능)
             - 복합 기본키 : Sort Key (Range Key) (범위연산 및 ~ 연산 가능)
 - 테이블 내 항목의 데이터 크기는 400KB를 초과할 수 없다.
+- 쿼리 결과 집합이 1MB보다 크면 일부 결과만 표시됨 - [참고](https://dulki.tistory.com/126)
 
 ### 인덱스
 - 단순 보조 인덱스 기본키 : Hash Key (기본키 이용하여 자동 생성)
