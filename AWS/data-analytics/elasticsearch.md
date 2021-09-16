@@ -19,6 +19,38 @@
 - 데이터의 업데이트를 지원하지 않음. 업데이트 명령이 오면 기존 문서를 삭제하고 새로운 문서 사용
   - 대신에 Immutable이라는 장점이 있다.
   - Segment가 Immutable한 이유는 캐싱 때문이다. Lucene은 읽기 속도를 높이기 위해 OS의 파일시스템 캐싱에 의존하고 있음. 빠른 액세스를 위해 hot segment를 메모리에 상주하게 유지시키는 식으로 작동한다. [참고](https://www.elastic.co/guide/en/elasticsearch/guide/current/heap-sizing.html#_give_less_than_half_your_memory_to_lucene)
+- AWS ElasticSearch Service(OpenSearch)의 경우 인스턴스의 정지가 불가능하기 때문에, 인덱스 스냅샷을 통해 S3로 인덱스를 내보낸 이후, 해당 elasticsearch 혹은 새로운 elasticsearch의 엔드포인트를 대상으로 스냅샷 복원을 수행해야 함. [참고](https://docs.aws.amazon.com/ko_kr/opensearch-service/latest/developerguide/managedomains-snapshots.html#es-managedomains-snapshot-registerdirectory)
+  - 스냅샷 저장소 생성 -> 스냅샷 저장소로 인덱스 내보내기 -> 복원
+  - aws signature 사용을 위한 IAM User 생성이 필요
+    - `iam:PassRole`, `es:ESHttpPut`을 허용하는 IAM User
+    - 여기서 iam:PassRole의 Resource 대상은 다음 IAM ROLE과 같음
+        ```json
+        {
+        "Version": "2012-10-17",
+        "Statement": [{
+            "Action": [
+              "s3:ListBucket"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+              "arn:aws:s3:::s3-bucket-name"
+            ]
+          },
+          {
+            "Action": [
+              "s3:GetObject",
+              "s3:PutObject",
+              "s3:DeleteObject"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+              "arn:aws:s3:::s3-bucket-name/*"
+            ]
+          }
+        ]
+        }
+        ```
+  - Kibana의 dev tool에서 aws signature이 제대로 작동하지 않기 때문에, postman 등의 툴에서 aws signature을 사용하여 각각의 명령어를 호출해야 함
 
 ## 성능 향상 팁
 - 샤드는 여러 노드에 잘 분포되도록
