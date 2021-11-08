@@ -36,6 +36,16 @@
   - Hub and Spoke 모델 구현에 적합 : 여러 지사가 있고, 원격 지사 간에 기본 연결 또는 백업 연결을 위한 구조
     ![VPN CloudHub](https://docs.aws.amazon.com/ko_kr/vpn/latest/s2svpn/images/AWS_VPN_CloudHub-diagram.png)
 
+### Site-to-Site VPN (Static의 경우- No BGP)
+
+1. VGW 생성
+2. CGW 생성 : IP는 IDC의 VPN 장비 IP
+3. 라우팅 전파 활성화(VPC 내 Public Subnet이 연결된 routing table에서)
+4. Site-to-Site VPN Connection 생성 : Static IP Prefix에 IDC IP 주소 입력
+5. 구성 다운로드 : no BGP 일 경우 static route 등 주석된 부분 확인 필요
+
+   - [CGW Configure 구성 시 트러블슈팅](https://docs.aws.amazon.com/ko_kr/vpn/latest/s2svpn/Troubleshooting.html)
+
 ## AWS Client VPN
 
 - AWS와 사용자(클라이언트)를 연결하는 VPN
