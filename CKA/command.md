@@ -34,6 +34,8 @@ kubectl patch rs new-replica-set --type='json' -p='[{"op": "replace", "path": "/
 
 - imperative pod deploy : `k run nginx-pod --image=nginx:alpine`
 
+- 리소스 수정 : `kubectl edit deployment frontend`
+
 ### --label 옵션 지원 종료
 
 ```
