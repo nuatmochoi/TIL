@@ -67,3 +67,13 @@ k label pod redis tier=db
 #### prefered
 
 - `kubectl apply -f https://k8s.io/examples/pods/pod-nginx-preferred-affinity.yaml --dry-run=client -o yaml > prefer.yaml`
+
+- daemonset describe : `k describe daemonset kube-flannel-ds -n kube-system`
+
+- static pod path 등 config 확인
+    1. `ps -aux | grep kubelet`
+    2. 결과 중 `--config=/var/lib/kubelet/config.yaml` 확인
+    3. `vi /var/lib/kubelet/config.yaml` 중 static pod path 확인
+
+#### multiple scheduler
+- leader-elect
