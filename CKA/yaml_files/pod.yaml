@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp 
+  labels:
+    app: echo 
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: echo
+  template:
+    metadata:
+      labels:
+        app: echo
+    spec:  
+      containers:
+        - name: nginx-container
+          image: nginx
+          env:
+            - name: BACKEND_HOST
+              value: localhost:8080
+          ports:
+            - containerPort: 80
+        - name: echo
+          image: nginx
+          ports:
+            - containerPort: 8080
+            

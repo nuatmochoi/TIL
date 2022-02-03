@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: webapp
+  name: webapp
+spec:
+  containers:
+  - image: kodekloud/event-simulator
+    name: webapp
+    resources: {}
+    volumeMounts:
+    - name: path
+      mountPath: /log
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+  - name: path
+    hostPath:
+      path: /var/log/webapp
+      type: Directory
+status: {}
