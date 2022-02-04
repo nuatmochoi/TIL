@@ -71,35 +71,47 @@ k label pod redis tier=db
 - daemonset describe : `k describe daemonset kube-flannel-ds -n kube-system`
 
 - static pod path 등 config 확인
-    1. `ps -aux | grep kubelet`
-    2. 결과 중 `--config=/var/lib/kubelet/config.yaml` 확인
-    3. `vi /var/lib/kubelet/config.yaml` 중 static pod path 확인
+  1. `ps -aux | grep kubelet`
+  2. 결과 중 `--config=/var/lib/kubelet/config.yaml` 확인
+  3. `vi /var/lib/kubelet/config.yaml` 중 static pod path 확인
 
 #### multiple scheduler
+
 - leader-elect
 
 - 여러 개 secret 생성 : `k create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123`
 
 #### 유지보수 (drain)
+
 - `k drain node01 --ignore-daemonsets`
 - cordon과 차이는 SchedulingDisable된 노드의 Pod를 삭제하고 재생성
   - 이러한 특징으로 사용 가능한 node가 없을 때 drain 대신 cordon을 써야함
 - 오류 뜨면 --force 옵션 추가
 - 다시 스케줄링 추가 : `k uncordon node01`
 
+#### node 초기화
+
+- `kubeadm init --apiserver-cert-extra-sans=controlplane --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address 10.8.203.12`
+- 초기화 후 다시 시작하려면 `kubeadm reset cleanup-node`
+
 #### Control Plane node 업그레이드
+
 ##### Kubeadm 업그레이드
-- `k drain controlplane --ignoe-daemonsets`으로 master node SchedulingDisable 한 이후
+
+- `k drain controlplane --ignore-daemonsets`으로 master node SchedulingDisable 한 이후
 - `apt-get update && apt-get install -y --allow-change-held-packages kubeadm=1.20.0-00`
 - `kubeadm upgrade plan`
-- `kubeadm upgrade apply v1.20.0` 
+- `kubeadm upgrade apply v1.20.0`
+
 ##### kubelet 업그레이드
+
 - `apt install kubelet=1.20.0-00`
 - kubelet 재시작
   - `sudo systemctl daemon-reload`
   - `sudo systemctl restart kubelet`
 
 #### worker node 업그레이드
+
 - `ssh node01`
 - `apt-get update && apt-get install -y --allow-change-held-packages kubeadm=1.20.0-00`
 - `kubeadm upgrade node`
@@ -113,37 +125,46 @@ k label pod redis tier=db
 - `ps -aux | grep -i etcd`
 
 ```sh
-etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt \                                           
+etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt \
 --cert=/etc/kubernetes/pki/etcd/server.crt \
 --key=/etc/kubernetes/pki/etcd/server.key \
 snapshot save /opt/snapshot-pre-boot.db
 ```
 
 #### Etcd backup restore
-1. 
-etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt \
---cert=/etc/kubernetes/pki/etcd/server.crt
---key=/etc/kubernetes/pki/etcd/server.key
---data-dir=/var/lib/etcd_backup --initial-advertise-peer-urls=https://10.5.159.9:2380 --initial-cluster=controlplane=https://10.5.159.9:2380 --name=controlplane snapshot restore /opt/snapshot-pre-boot.db
 
-2. /etc/kubernetes/manifests의 hostPath 수정
+1.  etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+    --cert=/etc/kubernetes/pki/etcd/server.crt
+    --key=/etc/kubernetes/pki/etcd/server.key
+    --data-dir=/var/lib/etcd_backup --initial-advertise-peer-urls=https://10.5.159.9:2380 --initial-cluster=controlplane=https://10.5.159.9:2380 --name=controlplane snapshot restore /opt/snapshot-pre-boot.db
+
+2.  /etc/kubernetes/manifests의 hostPath 수정
 
 #### name of CA
+
 - `openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text`
 
 #### cluster 변경
+
 - `k config use-context research --kubeconfig=/root/my-kube-config`
 
 #### Assign 된 Role
+
 - `k describe rolebinding kube-proxy -n kube-system`
 
 #### Role yaml
+
 - `k create role developer --verb="*" --dry-run=client --resource=pod -o yaml > drole.yaml`
 
 #### RoleBinding yaml
+
 - `k create rolebinding dev-user-binding --role=developer --user=dev-user --dry-run=client -o yaml > rb2.yaml`
 
 #### PV yaml
+
 - `kubectl create -f https://k8s.io/examples/pods/storage/pv-volume.yaml --dry-run=client -o yaml > pv.yaml`
 
+#### Node Join Token (워커노드를 마스터 클러스터에 결합)
 
+- `kubeadm token list`
+- `kubeadm token create --print-join-command`
