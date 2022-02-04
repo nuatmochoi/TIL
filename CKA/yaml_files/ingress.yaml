@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: 'false'
+  namespace: critical-space
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: pay-service
+                port:
+                  number: 8282
+            path: /pay
+            pathType: Prefix
+status:
+  loadBalancer:
+    ingress:
+      - {}
