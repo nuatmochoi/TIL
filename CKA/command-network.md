@@ -41,3 +41,6 @@
 ## Ingress
 
 - ingress 생성하기 전에 `k get svc --all-namespaces`로 서비스 및 포트 확인
+
+## Kube-proxy
+- kube proxy config 조회 : `kubectl describe configmap kube-proxy -n kube-system`
