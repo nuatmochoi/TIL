@@ -89,36 +89,6 @@ k label pod redis tier=db
 - 오류 뜨면 --force 옵션 추가
 - 다시 스케줄링 추가 : `k uncordon node01`
 
-#### node 초기화
-
-- `kubeadm init --apiserver-cert-extra-sans=controlplane --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address 10.8.203.12`
-- 초기화 후 다시 시작하려면 `kubeadm reset cleanup-node`
-
-#### Control Plane node 업그레이드
-
-##### Kubeadm 업그레이드
-
-- `k drain controlplane --ignore-daemonsets`으로 master node SchedulingDisable 한 이후
-- `apt-get update && apt-get install -y --allow-change-held-packages kubeadm=1.20.0-00`
-- `kubeadm upgrade plan`
-- `kubeadm upgrade apply v1.20.0`
-
-##### kubelet 업그레이드
-
-- `apt install kubelet=1.20.0-00`
-- kubelet 재시작
-  - `sudo systemctl daemon-reload`
-  - `sudo systemctl restart kubelet`
-
-#### worker node 업그레이드
-
-- `ssh node01`
-- `apt-get update && apt-get install -y --allow-change-held-packages kubeadm=1.20.0-00`
-- `kubeadm upgrade node`
-- `apt install kubelet=1.20.0-00`
-- `sudo systemctl restart kubelet`
-- `exit`
-
 #### Etcd snapshot
 
 - `export ETCDCTL_API=3`
@@ -164,7 +134,3 @@ snapshot save /opt/snapshot-pre-boot.db
 
 - `kubectl create -f https://k8s.io/examples/pods/storage/pv-volume.yaml --dry-run=client -o yaml > pv.yaml`
 
-#### Node Join Token (워커노드를 마스터 클러스터에 결합)
-
-- `kubeadm token list`
-- `kubeadm token create --print-join-command`
