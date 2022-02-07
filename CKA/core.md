@@ -39,6 +39,7 @@
 2. kube-proxy
     - worker node의 애플리케이션끼리 서로 통신이 가능하도록 함(`ex:db<->server`)
     - 노드의 네트워트 규칙을 관리
+    - 내구성을 위해 daemonset으로 설치됨
 3. container runtime
     - Docker, ContainerD, Rocket 등 런타임 엔진
 
