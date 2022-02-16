@@ -43,4 +43,11 @@
 - ingress 생성하기 전에 `k get svc --all-namespaces`로 서비스 및 포트 확인
 
 ## Kube-proxy
+
 - kube proxy config 조회 : `kubectl describe configmap kube-proxy -n kube-system`
+
+## DNS Resolution
+
+`kubectl run test-nslookup --image=busybox:1.28 --rm -it --restart=Never -- nslookup nginx-resolver-service`
+
+`kubectl run test-nslookup --image=busybox:1.28 --rm -it --restart=Never -- nslookup <P-O-D-I-P.default.pod>`
