@@ -1,6 +1,8 @@
 # Amazon MemoryDB for Redis
 
 - 다중 AZ의 내구성을 갖춘 Redis 호환 인메모리 DB 서비스
+- DMS 통해서 ElastiCache에서 Migration 가능
+- [Redis Enterprise Cloud](https://redis.com/redis-enterprise-cloud/overview/)에 대응되는 서비스
 
 ## ElastiCache for Redis 가 있는데 왜?
 
@@ -13,9 +15,15 @@
 - Scaling 어려울 수도
 - 비싸거나
 
-- ElastiCache는 **기본 DB및 다른 저장소의 Data를 캐싱** or 내구성이 필요하지 않은 일시적 데이터를 위함
+- ElastiCache는 **기본 DB및 다른 저장소의 Data를 캐싱** or 내구성이 필요하지 않은 일시적 데이터를 위함 
+  - memcached와 비슷하게 이슈가 있어서 노드가 다운되면 데이터가 날아감
+  - 직접 구성하는 Redis의 경우 HDD에 저장되겠지만, ElastiCache는 날아감
+    - 단일 노드의 경우 AOF 기능을 통해 노드 재부팅 시 데이터 지속, but 노드 손상 시 데이터 손실
+    - multi-AZ(replica) 구성 시에도 노드 승격이 비동기 작업이기 때문에 down-time은 발생할 수 있음
+  - 따라서 Multi AZ가 필요함 
 - MemoryDB는 멀티 AZ 내구성 / 애플리케이션의 기본 DB(Primary DB)로 지정 가능 (캐싱과는 별개) / 그러면서 Redis API와 호환
-
+  - 영구 저장 
+  - 쓰기 속도는 ElastiCache보다 좀 느림 (ElastiCache는 쓰기 읽기 모두 microsecond 단위)
 ## 기능
 
 - microsecond read / 한자리 ms write
