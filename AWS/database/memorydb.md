@@ -2,7 +2,7 @@
 
 - 다중 AZ의 내구성을 갖춘 Redis 호환 인메모리 DB 서비스
 - DMS 통해서 ElastiCache에서 Migration 가능
-- [Redis Enterprise Cloud](https://redis.com/redis-enterprise-cloud/overview/)에 대응되는 서비스
+
 
 ## ElastiCache for Redis 가 있는데 왜?
 
