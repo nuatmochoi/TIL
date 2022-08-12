@@ -14,6 +14,16 @@
 - 상태 체크로 자동으로 복구
 - 클러스터(컨테이너 인스턴스 그룹)을 API로 관리
 
+### Container Architecture Pattern
+1. ECS on EC2
+- 이미지 캐시로 배포 빠름
+2. ECS on Fargate
+- Fargate 기반으로 비싸며, 
+- 이미지 캐시 불가능 -> 컨테이너 기동 시 무조건 pull
+- 컨테이너 기동시 컨테이너 별로 ENI 연결 
+- [휘발성 스토리지 한계 200GB](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-task-storage.html#fargate-task-storage-pv14), 필요한 경우 EFS로 영구 스토리지 용량 확장 가능
+- 할당 가능 자원 - 4vCPU, 30GB Memory가 최대
+
 ## EKS
 
 - 관리형 k8s 서비스
